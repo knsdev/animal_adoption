@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
+body {
+  background-color: whitesmoke;
+}
+
+.title-row {
+  background-color: #f3e9dc;
+
+  h1 {
+    font-family: "Playwrite DE Grund", cursive;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    font-size: 2.5rem;
+    padding: 0.5rem;
+  }
+}

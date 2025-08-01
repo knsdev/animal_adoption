@@ -54,11 +54,13 @@ if (isset($_POST['login'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animal Adoption - Login</title>
+  <title><?= WEBSITE_TITLE ?> - Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles/style.css">
 </head>
 
 <body>
+  <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
     <h1>Login</h1>
     <form method="POST" class="mt-4 mb-3 d-flex flex-column justify-content-start align-items-start">

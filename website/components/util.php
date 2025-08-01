@@ -27,21 +27,27 @@ function get_user_data($conn, $userId)
 
   if ($result) {
     if (mysqli_num_rows($result) != 1) {
-      return [null, null];
+      return null;
     }
 
     $row = mysqli_fetch_assoc($result);
 
+    $defaultImgUrl = './' . PICTURE_FOLDER_NAME . '/user.png';
+
     if (empty($row['picture'])) {
-      $profileImgUrl = './' . PICTURE_FOLDER_NAME . '/user.png';
+      $row['profile_img_url'] = $defaultImgUrl;
     } else {
-      $profileImgUrl = './' . PICTURE_FOLDER_NAME . '/' . $row['picture'];
+      $pictureUrl = './' . PICTURE_FOLDER_NAME . '/' . $row['picture'];
+
+      if (!file_exists($pictureUrl)) {
+        $row['profile_img_url'] = $defaultImgUrl;
+      } else {
+        $row['profile_img_url'] = $pictureUrl;
+      }
     }
-  } else {
-    return [null, null];
   }
 
-  return [$row, $profileImgUrl];
+  return $row;
 }
 
 function date_format_for_database($date)

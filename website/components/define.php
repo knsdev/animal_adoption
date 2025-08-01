@@ -1,5 +1,6 @@
 <?php
 
+define("WEBSITE_TITLE", "Animal Adoption");
 define("PICTURE_FOLDER_NAME", "uploads");
 
 define("EMAIL_MIN_LENGTH", 4);
