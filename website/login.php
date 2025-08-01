@@ -59,7 +59,7 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
-  <div class="container">
+  <div class="container mt-3 mb-5">
     <h1>Login</h1>
     <form method="POST" class="mt-4 mb-3 d-flex flex-column justify-content-start align-items-start">
       <div>
@@ -77,7 +77,7 @@ if (isset($_POST['login'])) {
       </div>
     </form>
 
-    <a href="./user_register.php">Register new Account</a>
+    <a href="./register.php">Register new Account</a>
   </div>
 
 
