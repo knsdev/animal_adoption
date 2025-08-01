@@ -1,4 +1,14 @@
 <?php
+session_start();
+
+if (isset($_SESSION['user'])) {
+  header("location: home.php");
+  exit();
+} else if (isset($_SESSION['admin'])) {
+  header("location: dashboard.php");
+  exit();
+}
+
 require_once './components/define.php';
 require_once './components/db_connect.php';
 require_once './components/util.php';

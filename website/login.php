@@ -1,7 +1,50 @@
 <?php
 session_start();
 
+if (isset($_SESSION['user'])) {
+  header("location: home.php");
+  exit();
+} else if (isset($_SESSION['admin'])) {
+  header("location: dashboard.php");
+  exit();
+}
 
+require_once './components/define.php';
+require_once './components/db_connect.php';
+require_once './components/util.php';
+
+if (isset($_POST['login'])) {
+  $conn = db_connect();
+
+  $email = clean_input($_POST['email']);
+  $password = clean_input($_POST['password']);
+  $password = hash("sha256", $password);
+
+  $sql = "SELECT * FROM `user` WHERE email='$email' AND password='$password'";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    echo "<div class='alert alert-error' role='alert'>
+              Internal Server Error
+            </div>";
+  } else if (mysqli_num_rows($result) != 1) {
+    echo "<div class='alert alert-warning' role='alert'>
+              Wrong credentials!
+            </div>";
+  } else {
+    $row = mysqli_fetch_assoc($result);
+
+    if ($row['authority'] == 'user') {
+      $_SESSION['user'] = $row['id'];
+      header("location: home.php");
+    } else if ($row['authority'] == 'admin') {
+      $_SESSION['admin'] = $row['id'];
+      header("location: dashboard.php");
+    }
+  }
+
+  mysqli_close($conn);
+}
 
 ?>
 
