@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2025 at 01:24 PM
+-- Generation Time: Aug 01, 2025 at 02:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,6 +42,22 @@ CREATE TABLE `animal` (
   `breed_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `animal`
+--
+
+INSERT INTO `animal` (`id`, `name`, `picture`, `location`, `description`, `size`, `age`, `vaccinated`, `status`, `breed_id`) VALUES
+(1, 'Bella', NULL, 'Musterstraße 12, 1010 Wien', 'Golden Retriever, friendly and playful.', 'big', 3, 1, 'available', 1),
+(2, 'Whiskers', NULL, 'Hauptplatz 9, 4020 Linz', 'Siamese cat, very vocal and affectionate.', 'small', 2, 1, 'available', 3),
+(3, 'Thumper', NULL, 'Mozartstraße 4, 5020 Salzburg', 'Netherland Dwarf rabbit, gentle and quiet.', 'small', 1, 0, 'available', 5),
+(4, 'Milo', NULL, 'Bahnhofstraße 8, 8010 Graz', 'Beagle, energetic and curious.', 'default', 9, 1, 'available', 2),
+(5, 'Luna', NULL, 'Am Ring 5, 1010 Wien', 'Maine Coon cat, calm and fluffy.', 'default', 9, 1, 'available', 4),
+(6, 'Chirpy', NULL, 'Landstraße 22, 4020 Linz', 'Cockatiel bird, social and sings often.', 'small', 2, 1, 'available', 6),
+(7, 'Fluffy', NULL, 'Schönbrunner Allee 3, 1120 Wien', 'Persian cat, quiet and loves to nap.', 'small', 3, 0, 'available', 7),
+(8, 'Rex', NULL, 'Getreidegasse 18, 5020 Salzburg', 'Labrador, loyal and great with kids.', 'big', 10, 1, 'available', 8),
+(9, 'Ziggy', NULL, 'Herrengasse 14, 8010 Graz', 'Abyssinian cat, very active and curious.', 'small', 12, 1, 'available', 9),
+(10, 'Cocoa', NULL, 'Linzer Gasse 7, 5020 Salzburg', 'Mini Lop rabbit, loves to be cuddled.', 'small', 1, 1, 'available', 10);
+
 -- --------------------------------------------------------
 
 --
@@ -52,6 +68,22 @@ CREATE TABLE `breed` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `breed`
+--
+
+INSERT INTO `breed` (`id`, `name`) VALUES
+(1, 'Golden Retriever'),
+(2, 'Beagle'),
+(3, 'Siamese Cat'),
+(4, 'Maine Coon'),
+(5, 'Netherland Dwarf'),
+(6, 'Cockatiel'),
+(7, 'Persian Cat'),
+(8, 'Labrador'),
+(9, 'Abyssinian'),
+(10, 'Mini Lop');
 
 -- --------------------------------------------------------
 
@@ -123,13 +155,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `animal`
 --
 ALTER TABLE `animal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `breed`
 --
 ALTER TABLE `breed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pet_adoption`
