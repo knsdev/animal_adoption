@@ -73,3 +73,8 @@ function date_format_for_display($date)
 
   return "";
 }
+
+function get_last_sql_error_message($conn)
+{
+  return ERROR_MESSAGE_GENERAL . ' Error: ' . mysqli_error($conn);
+}
