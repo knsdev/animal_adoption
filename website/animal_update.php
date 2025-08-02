@@ -6,6 +6,11 @@ if (!isset($_SESSION['admin'])) {
   exit();
 }
 
+if (!isset($_GET['id'])) {
+  header("location: dashboard.php");
+  exit();
+}
+
 require_once './components/define.php';
 require_once './components/db_connect.php';
 require_once './components/util.php';
@@ -16,7 +21,7 @@ $conn = db_connect();
 $myUserId = get_my_user_id_from_session();
 $myUserData = get_user_data($conn, $myUserId);
 
-if (isset($_POST['create'])) {
+if (isset($_POST['update'])) {
   $error = false;
   $picture = image_file_upload($_FILES['picture'], PICTURE_FOLDER_NAME);
   $_POST['picture'] = $picture[0];
@@ -26,9 +31,9 @@ if (isset($_POST['create'])) {
     $error = true;
   }
 
-  $response = create_animal($_POST, $error);
+  $response = update_animal($_GET['id'], $_POST, $error);
 
-  if ($response['status'] == 201) {
+  if ($response['status'] == 200) {
     echo "<div class='alert alert-success' role='alert'>
           {$response['message']}
         </div>";
@@ -45,7 +50,7 @@ if (isset($_POST['create'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= WEBSITE_TITLE ?> - Create Animal</title>
+  <title><?= WEBSITE_TITLE ?> - Update Animal</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
   <link rel="stylesheet" href="./styles/style.css">
 </head>
@@ -53,7 +58,7 @@ if (isset($_POST['create'])) {
 <body>
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
-    <h1>Create Animal</h1>
+    <h1>Update Animal</h1>
     <?php require_once 'animal_form.php'; ?>
   </div>
 
