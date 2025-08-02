@@ -187,7 +187,7 @@ function create_animal(&$data, $error)
   }
 }
 
-function update_animal($id, $data)
+function update_animal($id, &$data, $error)
 {
   global $conn;
 
@@ -198,18 +198,63 @@ function update_animal($id, $data)
     return create_response("400", "Invalid input: No id set!");
   }
 
-  // $data = get_input_data();
+  $data['name'] = get_clean_input($data, 'name');
+  $data['location'] = get_clean_input($data, 'location');
+  $data['picture'] = get_clean_input($data, 'picture');
+  $data['description'] = get_clean_input($data, 'description');
+  $data['size'] = get_clean_input($data, 'size');
+  $data['age'] = get_clean_input($data, 'age');
+  $data['vaccinated'] = get_clean_input($data, 'vaccinated');
+  $data['status'] = get_clean_input($data, 'status');
+  $data['breed_id'] = get_clean_input($data, 'breed_id');
+
+  $res = [];
+  validate_total_input($conn, $data, $res, $error);
+
+  if ($error) {
+    return create_response("400", "Invalid input.", $res);
+  } else {
+    $sql = "UPDATE `animal` SET
+           `name`='{$data['name']}',
+           `picture`='{$data['picture']}',
+           `location`='{$data['location']}',
+           `description`='{$data['description']}',
+           `size`='{$data['size']}',
+           `age`='{$data['age']}',
+           `vaccinated`='{$data['vaccinated']}',
+           `status`='{$data['status']}',
+           `breed_id`='{$data['breed_id']}'";
+
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+      return create_response("200", "Updated animal successfully.");
+    } else {
+      return create_response("500", "Internal Server Error: Failed to update the animal.");
+    }
+  }
 }
 
 function delete_animal($id)
 {
   global $conn;
 
-  require_admin();
+  if ($response = require_admin())
+    return $response;
 
   if (!isset($id)) {
     return create_response("400", "Invalid input: No id set!");
   }
+
+  $id = clean_input($id);
+  $sql = "DELETE FROM `animal` WHERE id=$id";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    return create_response("500", "Failed to delete animal.");
+  }
+
+  return create_response("200", "Animal deleted successfully.");
 }
 
 function get_animal_sizes()
