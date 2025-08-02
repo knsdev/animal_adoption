@@ -116,10 +116,12 @@ function validate_input_int($value, $nameForErrorMessage, $nameForMessage, &$res
   return true;
 }
 
-function validate_total_input($conn, $name, $location, $breed_id, &$res, &$error)
+function validate_total_input($conn, $data, &$res, &$error)
 {
-  validate_input_name($name, "error_name", "Name", ANIMAL_NAME_MIN_LENGTH, ANIMAL_NAME_MAX_LENGTH, $res, $error);
-  validate_input_name($location, "error_location", "Location", ANIMAL_LOCATION_MIN_LENGTH, ANIMAL_LOCATION_MAX_LENGTH, $res, $error);
+  validate_input_name($data['name'], "error_name", "Name", ANIMAL_NAME_MIN_LENGTH, ANIMAL_NAME_MAX_LENGTH, $res, $error);
+  validate_input_name($data['location'], "error_location", "Location", ANIMAL_LOCATION_MIN_LENGTH, ANIMAL_LOCATION_MAX_LENGTH, $res, $error);
+
+  $breed_id = $data['breed_id'];
 
   if (validate_input_int($breed_id, "error_breed_id", "Breed", $res, $error)) {
     $sql = "SELECT * FROM `breed` WHERE id=$breed_id";
@@ -135,53 +137,44 @@ function validate_total_input($conn, $name, $location, $breed_id, &$res, &$error
   }
 
   // TODO: Validate other fields
+  // is_numeric(age)
+  // age >= 0
 }
 
-function create_animal($data, $error)
+function create_animal(&$data, $error)
 {
   global $conn;
 
   if ($response = require_admin())
     return $response;
 
-  // $data = get_input_data();
-  $name = get_clean_input($data, 'name');
-  $location = get_clean_input($data, 'location');
-  $picture = get_clean_input($data, 'picture');
-  $description = get_clean_input($data, 'description');
-  $size = get_clean_input($data, 'size');
-  $age = get_clean_input($data, 'age');
-  $vaccinated = get_clean_input($data, 'vaccinated');
-  $status = get_clean_input($data, 'status');
-  $breed_id = get_clean_input($data, 'breed_id');
-
-  $_POST['name'] = $name;
-  $_POST['location'] = $location;
-  $_POST['picture'] = $picture;
-  $_POST['description'] = $description;
-  $_POST['size'] = $size;
-  $_POST['age'] = $age;
-  $_POST['vaccinated'] = $vaccinated;
-  $_POST['status'] = $status;
-  $_POST['breed_id'] = $breed_id;
+  $data['name'] = get_clean_input($data, 'name');
+  $data['location'] = get_clean_input($data, 'location');
+  $data['picture'] = get_clean_input($data, 'picture');
+  $data['description'] = get_clean_input($data, 'description');
+  $data['size'] = get_clean_input($data, 'size');
+  $data['age'] = get_clean_input($data, 'age');
+  $data['vaccinated'] = get_clean_input($data, 'vaccinated');
+  $data['status'] = get_clean_input($data, 'status');
+  $data['breed_id'] = get_clean_input($data, 'breed_id');
 
   $res = [];
-  validate_total_input($conn, $name, $location, $breed_id, $res, $error);
+  validate_total_input($conn, $data, $res, $error);
 
   if ($error) {
     return create_response("400", "Invalid input.", $res);
   } else {
     $sql = "INSERT INTO `animal` (`name`, `picture`, `location`, `description`, `size`, `age`, `vaccinated`, `status`, `breed_id`)
           VALUES (
-          '$name',
-          '$picture',
-          '$location',
-          '$description',
-          '$size',
-          '$age',
-          '$vaccinated',
-          '$status',
-          '$breed_id'
+          '{$data['name']}',
+          '{$data['picture']}',
+          '{$data['location']}',
+          '{$data['description']}',
+          '{$data['size']}',
+          '{$data['age']}',
+          '{$data['vaccinated']}',
+          '{$data['status']}',
+          '{$data['breed_id']}'
           )";
 
     $result = mysqli_query($conn, $sql);
@@ -225,6 +218,14 @@ function get_animal_sizes()
     ["value" => "small", "name" => "Small"],
     ["value" => "default", "name" => "Default"],
     ["value" => "big", "name" => "Big"],
+  ];
+}
+
+function get_animal_status_values()
+{
+  return [
+    ["value" => "available", "name" => "Available"],
+    ["value" => "adopted", "name" => "Adopted"],
   ];
 }
 

@@ -21,17 +21,9 @@ if (isset($_POST['create'])) {
   $picture = image_file_upload($_FILES['picture'], PICTURE_FOLDER_NAME);
   $_POST['picture'] = $picture[0];
 
-  switch ($picture[1]) {
-    case ImageFileUploadResult::Success:
-      break;
-
-    case ImageFileUploadResult::NoFileUploaded:
-      break;
-
-    default:
-      $errorPicture = image_file_get_error_message($picture[1]);
-      $error = true;
-      break;
+  if (!image_file_upload_is_success($picture[1])) {
+    $errorPicture = image_file_get_error_message($picture[1]);
+    $error = true;
   }
 
   $response = create_animal($_POST, $error);
@@ -88,13 +80,13 @@ if (isset($_POST['create'])) {
 
         <div class="form-group d-flex flex-column gap-2 mt-3">
           <label for="description">Description</label>
-          <textarea name="description" id="description" class="form-control"><?= $_POST['description'] ?? '' ?></textarea>
+          <textarea name="description" id="description" class="form-control" rows="5"><?= $_POST['description'] ?? '' ?></textarea>
         </div>
         <p class="text-danger fw-bold"><?= $response['data']['error_description'] ?? '' ?></p>
 
         <div class="form-group d-flex flex-column gap-2 mt-3">
-          <label for="size">Choose a size:</label>
-          <select name="size" id="size">
+          <label for="size">Size</label>
+          <select name="size" id="size" class="form-select">
             <?php
             $sizes = get_animal_sizes();
             $selectedSize = $_POST['size'] ?? '';
@@ -116,8 +108,43 @@ if (isset($_POST['create'])) {
         </div>
 
         <div class="form-group d-flex flex-column gap-2 mt-3">
-          <label for="breed_id">Choose a breed:</label>
-          <select name="breed_id" id="breed_id">
+          <label for="age">Age (years)</label>
+          <input type="number" name="age" id="age" class="form-control" value="<?= $_POST['age'] ?? '' ?>">
+        </div>
+        <p class="text-danger fw-bold"><?= $response['data']['error_age'] ?? '' ?></p>
+
+        <div class="form-group d-flex flex-row justify-content-between gap-2 mt-3">
+          <label for="vaccinated" class="form-check-label">Vaccinated</label>
+          <input type="checkbox" class="form-check-input" name="vaccinated" id="vaccinated" value="<?= $_POST['vaccinated'] ?? '' ?>">
+        </div>
+        <p class="text-danger fw-bold"><?= $response['data']['error_vaccinated'] ?? '' ?></p>
+
+        <div class="form-group d-flex flex-column gap-2 mt-3">
+          <label for="status">Status</label>
+          <select name="status" id="status" class="form-select">
+            <?php
+            $stati = get_animal_status_values();
+            $selectedSize = $_POST['size'] ?? '';
+
+            for ($i = 0; $i < count($stati); $i++) {
+              $statusValue = $stati[$i]['value'];
+              $statusName = $stati[$i]['name'];
+
+              echo "<option value='$statusValue'";
+
+              if ($statusValue == $selectedSize) {
+                echo " selected";
+              }
+
+              echo ">$statusName</option>";
+            }
+            ?>
+          </select>
+        </div>
+
+        <div class="form-group d-flex flex-column gap-2 mt-3">
+          <label for="breed_id">Breed</label>
+          <select name="breed_id" id="breed_id" class="form-select">
             <?php
             $breeds = get_animal_breeds();
             $selectedBreedId = $_POST['breed_id'] ?? '';
@@ -138,7 +165,7 @@ if (isset($_POST['create'])) {
           </select>
         </div>
 
-        <div>
+        <div class="mt-3">
           <input type="submit" name="create" value="Create" class="btn btn-primary">
         </div>
       </div>

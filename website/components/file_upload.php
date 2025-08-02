@@ -10,6 +10,11 @@ enum ImageFileUploadResult
   case UnknownError;
 }
 
+function image_file_upload_is_success($result)
+{
+  return $result === ImageFileUploadResult::Success || $result === ImageFileUploadResult::NoFileUploaded;
+}
+
 function image_file_get_error_message($result)
 {
   switch ($result) {
