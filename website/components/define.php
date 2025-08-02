@@ -2,6 +2,7 @@
 
 define("WEBSITE_TITLE", "Animal Adoption");
 define("PICTURE_FOLDER_NAME", "uploads");
+define("ANIMAL_DEFAULT_PICTURE_URL", "https://cdn.pixabay.com/photo/2022/02/11/00/50/golden-retriever-7006401_1280.jpg");
 
 define("EMAIL_MIN_LENGTH", 4);
 define("EMAIL_MAX_LENGTH", 200);

@@ -115,6 +115,29 @@ if (isset($_POST['create'])) {
           </select>
         </div>
 
+        <div class="form-group d-flex flex-column gap-2 mt-3">
+          <label for="breed_id">Choose a breed:</label>
+          <select name="breed_id" id="breed_id">
+            <?php
+            $breeds = get_animal_breeds();
+            $selectedBreedId = $_POST['breed_id'] ?? '';
+
+            for ($i = 0; $i < count($breeds); $i++) {
+              $breedId = $breeds[$i]['id'];
+              $breedName = $breeds[$i]['name'];
+
+              echo "<option value='$breedId'";
+
+              if ($breedId == $selectedBreedId) {
+                echo " selected";
+              }
+
+              echo ">$breedName</option>";
+            }
+            ?>
+          </select>
+        </div>
+
         <div>
           <input type="submit" name="create" value="Create" class="btn btn-primary">
         </div>

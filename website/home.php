@@ -18,7 +18,7 @@ if ($result) {
   $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
   foreach ($rows as $animal) {
-    $animalPictureUrl = $animal['picture'] ?? 'https://cdn.pixabay.com/photo/2022/02/11/00/50/golden-retriever-7006401_1280.jpg';
+    $animalPictureUrl = $animal['picture'] ? PICTURE_FOLDER_NAME . '/' . $animal['picture'] : ANIMAL_DEFAULT_PICTURE_URL;
 
     $layout .= "
     <div style='width: fit-content;'>
