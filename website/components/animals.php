@@ -269,6 +269,51 @@ function delete_animal($id)
   return create_response("200", "Animal deleted successfully.");
 }
 
+function adopt_animal($animalId, $userId)
+{
+  global $conn;
+
+  if (!isset($userId))
+    return create_response("400", "Invalid input: No user ID set!");
+
+  if (!isset($animalId))
+    return create_response("400", "Invalid input: No animal ID set!");
+
+  $sql = "SELECT * FROM `pet_adoption` WHERE `user_id`=$userId AND `pet_id`=$animalId";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    return create_response("500", "Internal server error: Failed to adopt animal.");
+  } else if (mysqli_num_rows($result) > 0) {
+    return create_response("406", "You have adopted this animal already.");
+  }
+
+  $sql = "SELECT * FROM `pet_adoption` WHERE `pet_id`=$animalId";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    return create_response("500", "Internal server error: Failed to adopt animal.");
+  } else if (mysqli_num_rows($result) > 0) {
+    return create_response("406", "Animal has already been adopted by someone.");
+  }
+
+  $sql = "INSERT INTO `pet_adoption`(`user_id`, `pet_id`) VALUES ('$userId','$animalId')";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    return create_response("500", "Internal server error: Failed to adopt animal.");
+  }
+
+  $sql = "UPDATE `animal` SET `status`='adopted' WHERE id=$animalId";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    return create_response("500", "Internal server error: Failed to adopt animal.");
+  }
+
+  return create_response("201", "Animal adopted successfully.");
+}
+
 function get_animal_sizes()
 {
   return [

@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (isset($_SESSION['admin'])) {
+  header("location: dashboard.php");
+  exit();
+}
+
 require_once './components/define.php';
 require_once './components/db_connect.php';
 require_once './components/util.php';
@@ -10,6 +15,20 @@ require_once './components/card_layout.php';
 $conn = db_connect();
 $myUserId = get_my_user_id_from_session();
 $myUserData = get_user_data($conn, $myUserId);
+
+if (isset($_POST['adopt_animal'])) {
+  $adoptResponse = adopt_animal($_POST['animal_id_to_adopt'], $_SESSION['user']);
+
+  if ($adoptResponse['status'] == 201) {
+    echo "<div class='alert alert-success' role='alert'>
+          {$adoptResponse['message']}
+        </div>";
+  } else {
+    echo "<div class='alert alert-danger' role='alert'>
+          {$adoptResponse['message']}
+        </div>";
+  }
+}
 
 if (isset($_GET['senior']) && filter_var($_GET['senior'], FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) === true) {
   $response = get_animals_age_greater(8);
