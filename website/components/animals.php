@@ -70,6 +70,15 @@ function get_animals_age_greater($minAge)
   return fetch_animals_internal("SELECT * FROM `animal` WHERE age > $minAge");
 }
 
+function get_animals_adopted_by_user($userId)
+{
+  return fetch_animals_internal(
+    "SELECT * FROM animal
+     INNER JOIN pet_adoption ON animal.id = pet_adoption.pet_id
+     WHERE pet_adoption.user_id = $userId"
+  );
+}
+
 function get_animal_by_id($id)
 {
   global $conn;

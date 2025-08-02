@@ -89,3 +89,8 @@ function create_back_button($url)
 {
   echo "<a href='$url' class='btn btn-secondary mt-3'>Back</a>";
 }
+
+function is_bool_input_true($varName)
+{
+  return isset($_GET[$varName]) && filter_var($_GET[$varName], FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) === true;
+}

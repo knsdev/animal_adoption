@@ -30,12 +30,15 @@ if (isset($_POST['adopt_animal'])) {
   }
 }
 
-if (isset($_GET['senior']) && filter_var($_GET['senior'], FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) === true) {
+if (is_bool_input_true('senior')) {
   $response = get_animals_age_greater(8);
-  $pageTitle = 'Senior pets';
+  $pageTitle = 'Senior Pets';
+} else if (is_bool_input_true('my_adopted_pets')) {
+  $response = get_animals_adopted_by_user($_SESSION['user']);
+  $pageTitle = 'My Adopted Pets';
 } else {
   $response = get_all_animals();
-  $pageTitle = 'All pets';
+  $pageTitle = 'All Pets';
 }
 
 if ($response['status'] == 200) {
@@ -67,6 +70,7 @@ if ($response['status'] == 200) {
     <div class="d-flex gap-3 mb-3">
       <a class="btn btn-primary" href="home.php">Show All</a>
       <a class="btn btn-primary" href="home.php?senior=true">Show Seniors</a>
+      <a class="btn btn-primary" href="home.php?my_adopted_pets=true">Show My Adopted Pets</a>
     </div>
     <?= $layout ?>
   </div>

@@ -144,7 +144,8 @@ if (isset($_POST['register'])) {
 <body>
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
-    <h1 class="mb-4">Register</h1>
+    <h1 class="mb-2">Register</h1>
+    <?php create_back_button("login.php"); ?>
     <form method="POST" enctype="multipart/form-data" style="max-width: 600px">
       <div class="form-group d-flex flex-column gap-2 mt-3">
         <label for="email">Email</label>
