@@ -121,7 +121,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`, `first_name`, `last_name`, `phone`, `address`, `picture`, `authority`) VALUES
 (1, 'admin@admin.com', 'cbfad02f9ed2a8d1e08d8f74f5303e9eb93637d47f82ab6f1c15871cf8dd0481', 'Admin', 'istrator', '+4312345678912345', 'Entenstraße 123, 12345 Entenhausen', 'img_688e5d863fba0.jpg', 'admin'),
-(2, 'user@user.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Thomas', 'Anderson', '+49 999 1000000', 'Geldspeicherstraße 1, 12345 Entenhausen', 'img_688e5db21fa50.png', 'user');
+(2, 'user@user.com', 'cbfad02f9ed2a8d1e08d8f74f5303e9eb93637d47f82ab6f1c15871cf8dd0481', 'Thomas', 'Anderson', '+49 999 1000000', 'Geldspeicherstraße 1, 12345 Entenhausen', 'img_688e5db21fa50.png', 'user');
 
 --
 -- Indexes for dumped tables
