@@ -29,15 +29,19 @@ if ($responseGet['status'] != 200) {
 }
 
 $animalData = $responseGet['data'];
-$_POST['name'] = $animalData['name'];
-$_POST['location'] = $animalData['location'];
-$_POST['picture'] = $animalData['picture'];
-$_POST['description'] = $animalData['description'];
-$_POST['size'] = $animalData['size'];
-$_POST['age'] = $animalData['age'];
-$_POST['vaccinated'] = $animalData['vaccinated'];
-$_POST['status'] = $animalData['status'];
-$_POST['breed_id'] = $animalData['breed_id'];
+
+// Apply values from the database if we have not sent a POST request yet.
+if (!isset($_POST['update'])) {
+  $_POST['name'] = $animalData['name'];
+  $_POST['location'] = $animalData['location'];
+  $_POST['picture'] = $animalData['picture'];
+  $_POST['description'] = $animalData['description'];
+  $_POST['size'] = $animalData['size'];
+  $_POST['age'] = $animalData['age'];
+  $_POST['vaccinated'] = $animalData['vaccinated'];
+  $_POST['status'] = $animalData['status'];
+  $_POST['breed_id'] = $animalData['breed_id'];
+}
 
 if (!empty($animalData['picture'])) {
   $picture = [$animalData['picture'], ImageFileUploadResult::Success];
@@ -45,12 +49,16 @@ if (!empty($animalData['picture'])) {
 
 if (isset($_POST['update'])) {
   $error = false;
-  $picture = image_file_upload($_FILES['picture'], PICTURE_FOLDER_NAME);
-  $_POST['picture'] = $picture[0];
+  $pictureNew = image_file_upload($_FILES['picture'], PICTURE_FOLDER_NAME);
 
-  if (!image_file_upload_is_success($picture[1])) {
-    $errorPicture = image_file_get_error_message($picture[1]);
+  if (!image_file_upload_is_success($pictureNew[1])) {
+    $errorPicture = image_file_get_error_message($pictureNew[1]);
     $error = true;
+  } else if ($pictureNew[1] === ImageFileUploadResult::NoFileUploaded) {
+    // keep the current picture
+  } else {
+    $picture = $pictureNew;
+    $_POST['picture'] = $picture[0];
   }
 
   $response = update_animal($_GET['id'], $_POST, $error);

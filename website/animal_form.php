@@ -58,7 +58,7 @@
 
     <div class="form-group d-flex flex-row justify-content-start align-items-center gap-4 mt-3">
       <label for="vaccinated" class="form-check-label">Vaccinated</label>
-      <input type="checkbox" class="form-check-input" style="width: 2rem; height: 2rem;" name="vaccinated" id="vaccinated" value="<?= $_POST['vaccinated'] ?? '' ?>">
+      <input <?= ($_POST['vaccinated']) ? 'checked' : '' ?> type="checkbox" class="form-check-input" style="width: 2rem; height: 2rem;" name="vaccinated" id="vaccinated" value="1">
     </div>
     <p class="text-danger fw-bold"><?= $response['data']['error_vaccinated'] ?? '' ?></p>
 

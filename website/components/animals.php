@@ -225,11 +225,13 @@ function update_animal($id, &$data, $error)
            `age`='{$data['age']}',
            `vaccinated`='{$data['vaccinated']}',
            `status`='{$data['status']}',
-           `breed_id`='{$data['breed_id']}'";
+           `breed_id`='{$data['breed_id']}'
+           WHERE id=$id";
 
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
+      echo $sql;
       return create_response("200", "Updated animal successfully.");
     } else {
       return create_response("500", "Internal Server Error: Failed to update the animal.");
