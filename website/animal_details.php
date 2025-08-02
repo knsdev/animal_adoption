@@ -1,8 +1,15 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['admin'])) {
+if (!isset($_SESSION['admin']) && !isset($_SESSION['user'])) {
   header("location: login.php");
+  exit();
+}
+
+$homeUrl = isset($_SESSION['admin']) ? "dashboard.php" : "home.php";
+
+if (!isset($_GET['id'])) {
+  header("location: $homeUrl");
   exit();
 }
 
@@ -10,21 +17,21 @@ require_once './components/define.php';
 require_once './components/db_connect.php';
 require_once './components/util.php';
 require_once './components/animals.php';
-require_once './components/card_layout.php';
+require_once './components/file_upload.php';
 
 $conn = db_connect();
 $myUserId = get_my_user_id_from_session();
 $myUserData = get_user_data($conn, $myUserId);
 
-$response = get_all_animals();
+$responseGet = get_animal_by_id($_GET['id']);
 
-if ($response['status'] == 200) {
-  $layout = create_card_layout_for_animals($response);
-} else {
-  echo "<div class='alert alert-danger' role='alert'>
-          {$response['message']}
-        </div>";
+if ($responseGet['status'] != 200) {
+  header("location: $homeUrl");
+  exit();
 }
+
+$animal = $responseGet['data'];
+$animalPictureUrl = get_animal_picture_url($animal);
 
 ?>
 
@@ -34,20 +41,19 @@ if ($response['status'] == 200) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= WEBSITE_TITLE ?> - Dashboard</title>
+  <title><?= WEBSITE_TITLE ?> - Update Animal</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
   <link rel="stylesheet" href="./styles/style.css">
-  <link rel="stylesheet" href="./styles/card_layout.css">
 </head>
 
 <body>
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
-    <h1 class="mb-3">Dashboard</h1>
-    <div class="d-flex gap-3 justify-content-start mb-3">
-      <a href='./animal_create.php' class='btn btn-primary'>Create New Animal</a>
-    </div>
-    <?= $layout ?>
+    <?= $animal['name'] ?>
+    <?php
+    ?>
+    <img src="<?= $animalPictureUrl ?>" alt="animal">
+    <?php create_back_button($homeUrl); ?>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>

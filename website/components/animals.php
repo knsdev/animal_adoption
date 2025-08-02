@@ -231,7 +231,6 @@ function update_animal($id, &$data, $error)
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
-      echo $sql;
       return create_response("200", "Updated animal successfully.");
     } else {
       return create_response("500", "Internal Server Error: Failed to update the animal.");
@@ -291,4 +290,9 @@ function get_animal_breeds()
 
   $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
   return $rows;
+}
+
+function get_animal_picture_url($animalData)
+{
+  return $animalData['picture'] ? PICTURE_FOLDER_NAME . '/' . $animalData['picture'] : ANIMAL_DEFAULT_PICTURE_URL;
 }

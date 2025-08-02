@@ -84,3 +84,8 @@ function get_last_sql_error_message($conn)
 {
   return ERROR_MESSAGE_GENERAL . ' Error: ' . mysqli_error($conn);
 }
+
+function create_back_button($url)
+{
+  echo "<a href='$url' class='btn btn-secondary mt-3'>Back</a>";
+}

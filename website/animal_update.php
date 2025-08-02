@@ -94,6 +94,8 @@ if (isset($_POST['update'])) {
     $submitButtonName = 'update';
     $submitButtonValue = 'Update';
     require_once 'animal_form.php';
+
+    create_back_button("dashboard.php");
     ?>
   </div>
 

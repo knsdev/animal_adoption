@@ -8,7 +8,7 @@ function create_card_layout_for_animals($response)
                          justify-content-center justify-content-md-start'>";
 
   foreach ($rows as $animal) {
-    $animalPictureUrl = $animal['picture'] ? PICTURE_FOLDER_NAME . '/' . $animal['picture'] : ANIMAL_DEFAULT_PICTURE_URL;
+    $animalPictureUrl = get_animal_picture_url($animal);
 
     $layout .= "
     <div style='width: fit-content;'>
@@ -20,10 +20,22 @@ function create_card_layout_for_animals($response)
           <div>
             <h5 class='card-title'>{$animal['name']}</h5>
             <p class='card-text'>{$animal['description']}</p>
-          </div>
-          <div>
-            <a href='#' class='btn btn-primary'>Take me home</a>
-          </div>
+          </div>";
+
+    if (isset($_SESSION['user'])) {
+      $layout .= "<div>
+                    <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>Details</a>
+                    <a href='#' class='btn btn-success'>Take me home</a>
+                  </div>";
+    } else if (isset($_SESSION['admin'])) {
+      $layout .= "<div>
+                    <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>Details</a>
+                    <a href='./animal_update.php?id={$animal['id']}' class='btn btn-success'>Update</a>
+                    <a href='./animal_delete.php?id={$animal['id']}' class='btn btn-danger'>Delete</a>
+                  </div>";
+    }
+
+    $layout .= "
         </div>
       </div>
     </div>
