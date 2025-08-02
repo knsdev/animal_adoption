@@ -6,7 +6,7 @@ define("ANIMAL_DEFAULT_PICTURE_URL", "https://cdn.pixabay.com/photo/2022/02/11/0
 
 define("EMAIL_MIN_LENGTH", 4);
 define("EMAIL_MAX_LENGTH", 200);
-define("PASSWORD_MIN_LENGTH", 6);
+define("PASSWORD_MIN_LENGTH", 4);
 define("PASSWORD_MAX_LENGTH", 255);
 
 define("ANIMAL_NAME_MIN_LENGTH", 3);

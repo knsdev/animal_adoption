@@ -45,20 +45,21 @@ if (!isset($_POST['update'])) {
 
 if (!empty($animalData['picture'])) {
   $picture = [$animalData['picture'], ImageFileUploadResult::Success];
+  $_POST['picture'] = $picture[0];
 }
 
 if (isset($_POST['update'])) {
   $error = false;
-  $pictureNew = image_file_upload($_FILES['picture'], PICTURE_FOLDER_NAME);
+  $newPicture = image_file_upload($_FILES['picture'], PICTURE_FOLDER_NAME);
 
-  if (!image_file_upload_is_success($pictureNew[1])) {
-    $errorPicture = image_file_get_error_message($pictureNew[1]);
+  if (!image_file_upload_is_success($newPicture[1])) {
+    $errorPicture = image_file_get_error_message($newPicture[1]);
     $error = true;
-  } else if ($pictureNew[1] === ImageFileUploadResult::NoFileUploaded) {
+  } else if ($newPicture[1] === ImageFileUploadResult::NoFileUploaded) {
     // keep the current picture
   } else {
-    $picture = $pictureNew;
-    $_POST['picture'] = $picture[0];
+    $picture = $newPicture;
+    $_POST['picture'] = $newPicture[0];
   }
 
   $response = update_animal($_GET['id'], $_POST, $error);
@@ -68,7 +69,7 @@ if (isset($_POST['update'])) {
                         {$response['message']}
                       </div>";
   } else {
-    image_file_delete($picture, PICTURE_FOLDER_NAME);
+    image_file_delete($newPicture, PICTURE_FOLDER_NAME);
   }
 }
 
