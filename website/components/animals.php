@@ -65,6 +65,11 @@ function get_all_animals()
   return fetch_animals_internal("SELECT * FROM `animal`");
 }
 
+function get_animals_available()
+{
+  return fetch_animals_internal("SELECT * FROM `animal` WHERE `status`='available'");
+}
+
 function get_animals_age_greater($minAge)
 {
   return fetch_animals_internal("SELECT * FROM `animal` WHERE age > $minAge");
@@ -73,8 +78,9 @@ function get_animals_age_greater($minAge)
 function get_animals_adopted_by_user($userId)
 {
   return fetch_animals_internal(
-    "SELECT * FROM animal
-     INNER JOIN pet_adoption ON animal.id = pet_adoption.pet_id
+    "SELECT a.id, a.name, a.picture, a.location, a.description, a.size, a.age, a.vaccinated, a.status, a.breed_id
+     FROM animal AS a
+     INNER JOIN pet_adoption ON a.id = pet_adoption.pet_id
      WHERE pet_adoption.user_id = $userId"
   );
 }

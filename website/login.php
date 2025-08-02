@@ -62,7 +62,7 @@ if (isset($_POST['login'])) {
 <body>
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
-    <h1>Login</h1>
+    <h1>Sign In</h1>
     <form method="POST" class="mt-4 mb-3 d-flex flex-column justify-content-start align-items-start">
       <div>
         <div class="d-flex mb-3">

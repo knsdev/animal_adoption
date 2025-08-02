@@ -24,15 +24,15 @@ function create_card_layout_for_animals($response)
 
     if (isset($_SESSION['user'])) {
       $layout .= "<div class='d-flex flex-row gap-1 justify-content-around' style='width:100%'>
-                    <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>Details</a>
-                    <form method='POST'>
-                        <input type='hidden' name='animal_id_to_adopt' value='{$animal['id']}' />
-                        <input type='submit' name='adopt_animal' class='btn btn-success' value='Take me home' />
-                    </form>
-                  </div>";
+                    <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>View Details</a>";
+      $layout .= "<form method='POST'>
+                      <input type='hidden' name='animal_id_to_adopt' value='{$animal['id']}' />
+                      <input" . (($animal['status'] != 'available') ? " disabled" : "") . " type='submit' name='adopt_animal' class='btn btn-success' value='Take me home' />
+                  </form>";
+      $layout .= "</div>";
     } else if (isset($_SESSION['admin'])) {
       $layout .= "<div>
-                    <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>Details</a>
+                    <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>View Details</a>
                     <a href='./animal_update.php?id={$animal['id']}' class='btn btn-success'>Update</a>
                     <a href='./animal_delete.php?id={$animal['id']}' class='btn btn-danger'>Delete</a>
                   </div>";

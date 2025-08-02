@@ -36,6 +36,9 @@ if (is_bool_input_true('senior')) {
 } else if (is_bool_input_true('my_adopted_pets')) {
   $response = get_animals_adopted_by_user($_SESSION['user']);
   $pageTitle = 'My Adopted Pets';
+} else if (is_bool_input_true('available_pets')) {
+  $response = get_animals_available();
+  $pageTitle = 'Available Pets';
 } else {
   $response = get_all_animals();
   $pageTitle = 'All Pets';
@@ -66,12 +69,13 @@ if ($response['status'] == 200) {
 <body>
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
-    <h1 class="mb-4"><?= $pageTitle ?></h1>
     <div class="d-flex gap-3 mb-3">
-      <a class="btn btn-primary" href="home.php">Show All</a>
-      <a class="btn btn-primary" href="home.php?senior=true">Show Seniors</a>
-      <a class="btn btn-primary" href="home.php?my_adopted_pets=true">Show My Adopted Pets</a>
+      <a class="btn btn-primary" href="home.php">All Pets</a>
+      <a class="btn btn-primary" href="home.php?available_pets=true">Available Pets</a>
+      <a class="btn btn-primary" href="home.php?senior=true">Senior Pets</a>
+      <a class="btn btn-primary" href="home.php?my_adopted_pets=true">My Adopted Pets</a>
     </div>
+    <h1 class="mb-4"><?= $pageTitle ?></h1>
     <?= $layout ?>
   </div>
 
