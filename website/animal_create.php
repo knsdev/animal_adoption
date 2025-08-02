@@ -89,7 +89,7 @@ if (isset($_POST['create'])) {
           <select name="size" id="size" class="form-select">
             <?php
             $sizes = get_animal_sizes();
-            $selectedSize = $_POST['size'] ?? '';
+            $selectedSize = $_POST['size'] ?? 'default';
 
             for ($i = 0; $i < count($sizes); $i++) {
               $sizeValue = $sizes[$i]['value'];
@@ -124,7 +124,7 @@ if (isset($_POST['create'])) {
           <select name="status" id="status" class="form-select">
             <?php
             $stati = get_animal_status_values();
-            $selectedSize = $_POST['size'] ?? '';
+            $selectedStatus = $_POST['status'] ?? '';
 
             for ($i = 0; $i < count($stati); $i++) {
               $statusValue = $stati[$i]['value'];
@@ -132,7 +132,7 @@ if (isset($_POST['create'])) {
 
               echo "<option value='$statusValue'";
 
-              if ($statusValue == $selectedSize) {
+              if ($statusValue == $selectedStatus) {
                 echo " selected";
               }
 
@@ -141,10 +141,12 @@ if (isset($_POST['create'])) {
             ?>
           </select>
         </div>
+        <p class="text-danger fw-bold"><?= $response['data']['error_status'] ?? '' ?></p>
 
         <div class="form-group d-flex flex-column gap-2 mt-3">
           <label for="breed_id">Breed</label>
           <select name="breed_id" id="breed_id" class="form-select">
+            <option value="-1">Select a breed ...</option>
             <?php
             $breeds = get_animal_breeds();
             $selectedBreedId = $_POST['breed_id'] ?? '';
@@ -164,6 +166,7 @@ if (isset($_POST['create'])) {
             ?>
           </select>
         </div>
+        <p class="text-danger fw-bold"><?= $response['data']['error_breed_id'] ?? '' ?></p>
 
         <div class="mt-3">
           <input type="submit" name="create" value="Create" class="btn btn-primary">

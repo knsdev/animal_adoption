@@ -123,7 +123,9 @@ function validate_total_input($conn, $data, &$res, &$error)
 
   $breed_id = $data['breed_id'];
 
-  if (validate_input_int($breed_id, "error_breed_id", "Breed", $res, $error)) {
+  if ($breed_id < 0) {
+    $res["error_breed_id"] = "You have to select a breed.";
+  } else if (validate_input_int($breed_id, "error_breed_id", "Breed", $res, $error)) {
     $sql = "SELECT * FROM `breed` WHERE id=$breed_id";
     $result = mysqli_query($conn, $sql);
 
