@@ -1,0 +1,12 @@
+.animal-picture-container {
+  width: 100%;
+  height: 15rem;
+  margin: auto;
+  overflow: hidden;
+}
+
+.animal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
