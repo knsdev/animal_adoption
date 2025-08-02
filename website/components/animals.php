@@ -54,11 +54,11 @@ function get_all_animals()
   $result = mysqli_query($conn, $sql);
 
   if (!$result) {
-    create_response("500", "Internal Server Error: Failed to fetch all animals");
+    return create_response("500", "Internal Server Error: Failed to fetch all animals");
   }
 
   $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-  create_response("200", "Successfully fetched all animals.", $rows);
+  return create_response("200", "Successfully fetched all animals.", $rows);
 }
 
 function get_animal_by_id($id)
@@ -71,15 +71,15 @@ function get_animal_by_id($id)
   $result = mysqli_query($conn, $sql);
 
   if (!$result) {
-    create_response("500", "Internal Server Error: Failed to fetch all animals");
+    return create_response("500", "Internal Server Error: Failed to fetch all animals");
   }
 
   if (mysqli_num_rows($result) != 1) {
-    create_response("404", "Animal not found.");
+    return create_response("404", "Animal not found.");
   }
 
   $row = mysqli_fetch_assoc($result);
-  create_response("200", "Successfully fetched animal by id.", $row);
+  return create_response("200", "Successfully fetched animal by id.", $row);
 }
 
 function validate_input_name($value, $nameForErrorMessage, $nameForMessage, $minCharacters, $maxCharacters, &$res, &$error)

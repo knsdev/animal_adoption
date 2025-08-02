@@ -4,18 +4,17 @@ session_start();
 require_once './components/define.php';
 require_once './components/db_connect.php';
 require_once './components/util.php';
+require_once './components/animals.php';
 
 $conn = db_connect();
 $myUserId = get_my_user_id_from_session();
 $myUserData = get_user_data($conn, $myUserId);
 
 $layout = "";
+$response = get_all_animals();
 
-$sql = "SELECT * FROM `animal`";
-$result = mysqli_query($conn, $sql);
-
-if ($result) {
-  $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+if ($response['status'] == 200) {
+  $rows = $response['data'];
 
   foreach ($rows as $animal) {
     $animalPictureUrl = $animal['picture'] ? PICTURE_FOLDER_NAME . '/' . $animal['picture'] : ANIMAL_DEFAULT_PICTURE_URL;
@@ -39,6 +38,10 @@ if ($result) {
     </div>
     ";
   }
+} else {
+  echo "<div class='alert alert-danger' role='alert'>
+          {$response['message']}
+        </div>";
 }
 
 ?>
