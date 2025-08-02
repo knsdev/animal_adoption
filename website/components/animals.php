@@ -46,19 +46,28 @@ function get_clean_input($data, $key, $default = null)
   return isset($data[$key]) ? clean_input($data[$key]) : $default;
 }
 
-function get_all_animals()
+function fetch_animals_internal($sql)
 {
   global $conn;
 
-  $sql = "SELECT * FROM `animal`";
   $result = mysqli_query($conn, $sql);
 
   if (!$result) {
-    return create_response("500", "Internal Server Error: Failed to fetch all animals");
+    return create_response("500", "Internal Server Error: Failed to fetch animals");
   }
 
   $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-  return create_response("200", "Successfully fetched all animals.", $rows);
+  return create_response("200", "Successfully fetched animals.", $rows);
+}
+
+function get_all_animals()
+{
+  return fetch_animals_internal("SELECT * FROM `animal`");
+}
+
+function get_animals_age_greater($minAge)
+{
+  return fetch_animals_internal("SELECT * FROM `animal` WHERE age > $minAge");
 }
 
 function get_animal_by_id($id)

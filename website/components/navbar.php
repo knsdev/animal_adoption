@@ -24,7 +24,7 @@
           <?php } ?>
           <?php if (isset($_SESSION['user']) || isset($_SESSION['admin'])) { ?>
             <li class="nav-item">
-              <a class="nav-link link-body-emphasis" href="#">Senior</a>
+              <a class="nav-link link-body-emphasis" href="home.php?senior=true">Senior</a>
             </li>
             <li class="nav-item">
               <a class="nav-link link-body-emphasis" href="logout.php">Sign out</a>
