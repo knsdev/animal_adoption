@@ -21,6 +21,28 @@ $conn = db_connect();
 $myUserId = get_my_user_id_from_session();
 $myUserData = get_user_data($conn, $myUserId);
 
+$responseGet = get_animal_by_id($_GET['id']);
+
+if ($responseGet['status'] != 200) {
+  header("location: dashboard.php");
+  exit();
+}
+
+$animalData = $responseGet['data'];
+$_POST['name'] = $animalData['name'];
+$_POST['location'] = $animalData['location'];
+$_POST['picture'] = $animalData['picture'];
+$_POST['description'] = $animalData['description'];
+$_POST['size'] = $animalData['size'];
+$_POST['age'] = $animalData['age'];
+$_POST['vaccinated'] = $animalData['vaccinated'];
+$_POST['status'] = $animalData['status'];
+$_POST['breed_id'] = $animalData['breed_id'];
+
+if (!empty($animalData['picture'])) {
+  $picture = [$animalData['picture'], ImageFileUploadResult::Success];
+}
+
 if (isset($_POST['update'])) {
   $error = false;
   $picture = image_file_upload($_FILES['picture'], PICTURE_FOLDER_NAME);
@@ -34,9 +56,9 @@ if (isset($_POST['update'])) {
   $response = update_animal($_GET['id'], $_POST, $error);
 
   if ($response['status'] == 200) {
-    echo "<div class='alert alert-success' role='alert'>
-          {$response['message']}
-        </div>";
+    $resultMessage = "<div class='alert alert-success' role='alert'>
+                        {$response['message']}
+                      </div>";
   } else {
     image_file_delete($picture, PICTURE_FOLDER_NAME);
   }
@@ -59,7 +81,11 @@ if (isset($_POST['update'])) {
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
     <h1>Update Animal</h1>
-    <?php require_once 'animal_form.php'; ?>
+    <?php
+    $submitButtonName = 'update';
+    $submitButtonValue = 'Update';
+    require_once 'animal_form.php';
+    ?>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>

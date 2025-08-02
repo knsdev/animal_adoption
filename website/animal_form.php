@@ -1,3 +1,4 @@
+<?= $resultMessage ?? '' ?>
 <form method="POST" enctype="multipart/form-data" style="max-width: 600px">
   <div>
     <div class="form-group d-flex flex-column gap-2 mt-3">
@@ -14,7 +15,7 @@
 
     <div class="form-group d-flex flex-column gap-2 mt-3">
       <label for="picture">Photo</label>
-      <img src="<?= isset($picture[0]) ? $picture[0] : '' ?>" alt="" width="200" style="border-radius: 50%">
+      <img src="<?= isset($picture[0]) ? PICTURE_FOLDER_NAME . '/' . $picture[0] : '' ?>" alt="" width="200" style="border-radius: 0.25rem">
       <input type="file" name="picture" id="picture" class="form-control">
     </div>
     <p class="text-danger fw-bold"><?= $errorPicture ?? '' ?></p>
@@ -47,6 +48,7 @@
         ?>
       </select>
     </div>
+    <p class="text-danger fw-bold"><?= $response['data']['error_size'] ?? '' ?></p>
 
     <div class="form-group d-flex flex-column gap-2 mt-3">
       <label for="age">Age (years)</label>
@@ -110,7 +112,7 @@
     <p class="text-danger fw-bold"><?= $response['data']['error_breed_id'] ?? '' ?></p>
 
     <div class="mt-3">
-      <input type="submit" name="create" value="Create" class="btn btn-primary">
+      <input type="submit" name="<?= $submitButtonName ?>" value="<?= $submitButtonValue ?>" class="btn btn-primary">
     </div>
   </div>
 </form>

@@ -29,9 +29,9 @@ if (isset($_POST['create'])) {
   $response = create_animal($_POST, $error);
 
   if ($response['status'] == 201) {
-    echo "<div class='alert alert-success' role='alert'>
-          {$response['message']}
-        </div>";
+    $resultMessage = "<div class='alert alert-success' role='alert'>
+                        {$response['message']}
+                      </div>";
   } else {
     image_file_delete($picture, PICTURE_FOLDER_NAME);
   }
@@ -54,7 +54,11 @@ if (isset($_POST['create'])) {
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
     <h1>Create Animal</h1>
-    <?php require_once 'animal_form.php'; ?>
+    <?php
+    $submitButtonName = 'create';
+    $submitButtonValue = 'Create';
+    require_once 'animal_form.php';
+    ?>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
