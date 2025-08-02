@@ -11,12 +11,12 @@ $conn = db_connect();
 $myUserId = get_my_user_id_from_session();
 $myUserData = get_user_data($conn, $myUserId);
 
-if (isset($_GET['senior']) && $_GET['senior']) {
+if (isset($_GET['senior']) && filter_var($_GET['senior'], FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) === true) {
   $response = get_animals_age_greater(8);
-  $pageTitle = 'Senior';
+  $pageTitle = 'Senior pets';
 } else {
   $response = get_all_animals();
-  $pageTitle = 'Home';
+  $pageTitle = 'All pets';
 }
 
 if ($response['status'] == 200) {
@@ -45,6 +45,10 @@ if ($response['status'] == 200) {
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
     <h1 class="mb-4"><?= $pageTitle ?></h1>
+    <div class="d-flex gap-3 mb-3">
+      <a class="btn btn-primary" href="home.php">Show All</a>
+      <a class="btn btn-primary" href="home.php?senior=true">Show Seniors</a>
+    </div>
     <?= $layout ?>
   </div>
 
