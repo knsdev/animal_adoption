@@ -361,6 +361,21 @@ function get_animal_breeds()
   return $rows;
 }
 
+function get_breed_by_id($breed_id)
+{
+  global $conn;
+
+  $sql = "SELECT * FROM `breed` WHERE id=$breed_id";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    return null;
+  }
+
+  $row = mysqli_fetch_assoc($result);
+  return $row;
+}
+
 function get_animal_picture_url($animalData)
 {
   return $animalData['picture'] ? PICTURE_FOLDER_NAME . '/' . $animalData['picture'] : ANIMAL_DEFAULT_PICTURE_URL;

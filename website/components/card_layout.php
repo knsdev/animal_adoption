@@ -10,10 +10,11 @@ function create_card_layout_for_animals($response)
   foreach ($rows as $animal) {
     $animalPictureUrl = get_animal_picture_url($animal);
     $vaccinatedText = ($animal['vaccinated']) ? 'Yes' : 'No';
+    $breedData = get_breed_by_id($animal['breed_id']);
 
     $layout .= "
     <div style='width: fit-content;'>
-      <div class='card mb-4 d-flex flex-column justify-content-between align-items-center' style='max-width: 20rem; min-height: 41rem'>";
+      <div class='card mb-4 d-flex flex-column justify-content-between align-items-center' style='max-width: 20rem; min-height: 30rem'>";
 
     $layout .= "<div>
                   <div class='animal-picture-container'>
@@ -21,19 +22,17 @@ function create_card_layout_for_animals($response)
                   </div>
                   <div class='card-body'>
                     <h5 class='card-title'>{$animal['name']}</h5>
-                    <p class='card-text'>{$animal['description']}</p>
+                    <p class='card-text' style='min-height: 48px'>{$animal['description']}</p>
                   </div>
                 </div>";
 
     $layout .= "<div style='width: 100%'>";
 
     $layout .= "<ul class='list-group list-group-flush'>
-                  <li class='list-group-item'></li>
-                  <li class='list-group-item'>Location: {$animal['location']}</li>
-                  <li class='list-group-item'>Size: {$animal['size']}</li>
-                  <li class='list-group-item'>Age: {$animal['age']} years</li>
-                  <li class='list-group-item'>Vaccinated: $vaccinatedText</li>
-                  <li class='list-group-item'>Status: {$animal['status']}</li>
+                  <li class='list-group-item' style='padding: 0'></li>
+                    <li class='list-group-item'>Location: {$animal['location']}</li>
+                    <li class='list-group-item'>Breed: {$breedData['name']}</li>
+                    <li class='list-group-item'>Status: {$animal['status']}</li>
                   <li class='list-group-item'></li>
                 </ul>";
 
@@ -55,7 +54,7 @@ function create_card_layout_for_animals($response)
 
     $layout .= "</div>"; // <div style='width: 100%'>
 
-    $layout .=  "</div></div>";
+    $layout .=  "</div></div>"; // <div class='card ...> , <div style='width: fit-content;'>
   }
 
   $layout .= "</div>";

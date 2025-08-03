@@ -32,6 +32,8 @@ if ($responseGet['status'] != 200) {
 
 $animal = $responseGet['data'];
 $animalPictureUrl = get_animal_picture_url($animal);
+$vaccinatedText = ($animal['vaccinated']) ? 'Yes' : 'No';
+$breedData = get_breed_by_id($animal['breed_id']);
 
 ?>
 
@@ -49,10 +51,45 @@ $animalPictureUrl = get_animal_picture_url($animal);
 <body>
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
-    <?= $animal['name'] ?>
     <?php
+    echo "<div style='width: fit-content;'>
+            <div class='card mb-4 d-flex flex-column justify-content-between align-items-center' style='max-width: 20rem; min-height: 41rem'>
+            
+            <div>
+              <div class='animal-picture-container'>
+                <img src='$animalPictureUrl' class='card-img-top animal-image' alt='animal'>
+              </div>
+
+              <div class='card-body'>
+                <h5 class='card-title'>{$animal['name']}</h5>
+                <p class='card-text'>{$animal['description']}</p>
+              </div>
+            </div>
+
+            <div style='width: 100%'>
+              <ul class='list-group list-group-flush'>
+                <li class='list-group-item'></li>
+                <li class='list-group-item'>Location: {$animal['location']}</li>
+                <li class='list-group-item'>Breed: {$breedData['name']}</li>
+                <li class='list-group-item'>Size: {$animal['size']}</li>
+                <li class='list-group-item'>Age: {$animal['age']} years</li>
+                <li class='list-group-item'>Vaccinated: $vaccinatedText</li>
+                <li class='list-group-item'>Status: {$animal['status']}</li>
+                <li class='list-group-item'></li>
+              </ul>
+
+              <div class='d-flex flex-row gap-1 justify-content-around mb-3' style='width:100%'>
+                <form method='POST'>
+                  <input type='hidden' name='animal_id_to_adopt' value='1'>
+                  <input disabled='' type='submit' name='adopt_animal' class='btn btn-success' value='Take me home'>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>";
     ?>
-    <img src="<?= $animalPictureUrl ?>" alt="animal">
+
     <?php create_back_button($homeUrl); ?>
   </div>
 
