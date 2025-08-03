@@ -24,13 +24,13 @@ if (isset($_POST['login'])) {
   $result = mysqli_query($conn, $sql);
 
   if (!$result) {
-    echo "<div class='alert alert-error' role='alert'>
-              Internal Server Error
-            </div>";
+    $resultMessage = "<div class='alert alert-error' role='alert'>
+                        Internal Server Error
+                      </div>";
   } else if (mysqli_num_rows($result) != 1) {
-    echo "<div class='alert alert-warning' role='alert'>
-              Wrong credentials!
-            </div>";
+    $resultMessage = "<div class='alert alert-warning' role='alert'>
+                        Wrong credentials!
+                      </div>";
   } else {
     $row = mysqli_fetch_assoc($result);
 
@@ -62,6 +62,7 @@ if (isset($_POST['login'])) {
 <body>
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5" style="flex-grow: 1;">
+    <?= $resultMessage ?? '' ?>
     <h1>Sign In</h1>
     <form method="POST" class="mt-4 mb-3 d-flex flex-column justify-content-start align-items-start">
       <div>
