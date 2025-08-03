@@ -30,10 +30,17 @@ function create_card_layout_for_animals($response)
 
     $layout .= "<ul class='list-group list-group-flush'>
                   <li class='list-group-item' style='padding: 0'></li>
-                    <li class='list-group-item'>Location: {$animal['location']}</li>
-                    <li class='list-group-item'>Breed: {$breedData['name']}</li>
-                    <li class='list-group-item'>Status: {$animal['status']}</li>
-                  <li class='list-group-item'></li>
+                  <li class='list-group-item'>Location: {$animal['location']}</li>
+                  <li class='list-group-item'>Breed: {$breedData['name']}</li>
+                  <li class='list-group-item'>Status: {$animal['status']}</li>";
+
+    if ($animal['status'] == 'adopted' && isset($animal['adoption_date'])) {
+      $adoption_date = $animal['adoption_date'];
+      $adoption_date_text = date_format_for_display($adoption_date);
+      $layout .= "<li class='list-group-item'>Adoption Date: $adoption_date_text</li>";
+    }
+
+    $layout .= "  <li class='list-group-item'></li>
                 </ul>";
 
     if (isset($_SESSION['user'])) {

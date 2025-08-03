@@ -23,6 +23,20 @@ $conn = db_connect();
 $myUserId = get_my_user_id_from_session();
 $myUserData = get_user_data($conn, $myUserId);
 
+if (isset($_POST['adopt_animal']) && isset($_SESSION['user'])) {
+  $adoptResponse = adopt_animal($_POST['animal_id_to_adopt'], $_SESSION['user']);
+
+  if ($adoptResponse['status'] == 201) {
+    echo "<div class='alert alert-success' role='alert'>
+          {$adoptResponse['message']}
+        </div>";
+  } else {
+    echo "<div class='alert alert-danger' role='alert'>
+          {$adoptResponse['message']}
+        </div>";
+  }
+}
+
 $responseGet = get_animal_by_id($_GET['id']);
 
 if ($responseGet['status'] != 200) {

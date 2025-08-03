@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2025 at 01:11 PM
+-- Generation Time: Aug 03, 2025 at 01:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -88,7 +88,8 @@ INSERT INTO `breed` (`id`, `name`) VALUES
 CREATE TABLE `pet_adoption` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `pet_id` int(11) NOT NULL
+  `pet_id` int(11) NOT NULL,
+  `adoption_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

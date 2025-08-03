@@ -78,10 +78,10 @@ function get_animals_age_greater($minAge)
 function get_animals_adopted_by_user($userId)
 {
   return fetch_animals_internal(
-    "SELECT a.id, a.name, a.picture, a.location, a.description, a.size, a.age, a.vaccinated, a.status, a.breed_id
+    "SELECT a.id, a.name, a.picture, a.location, a.description, a.size, a.age, a.vaccinated, a.status, a.breed_id, adopt.adoption_date
      FROM animal AS a
-     INNER JOIN pet_adoption ON a.id = pet_adoption.pet_id
-     WHERE pet_adoption.user_id = $userId"
+     INNER JOIN pet_adoption AS adopt ON a.id = adopt.pet_id
+     WHERE adopt.user_id = $userId"
   );
 }
 
