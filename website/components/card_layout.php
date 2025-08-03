@@ -9,7 +9,7 @@ function create_card_layout_for_animals($response)
 
   foreach ($rows as $animal) {
     $animalPictureUrl = get_animal_picture_url($animal);
-    $vaccinatedText = ($animal['vaccinated']) ? 'vaccinated' : 'not vaccinated';
+    $vaccinatedText = ($animal['vaccinated']) ? 'Yes' : 'No';
 
     $layout .= "
     <div style='width: fit-content;'>
@@ -32,7 +32,7 @@ function create_card_layout_for_animals($response)
                   <li class='list-group-item'>Location: {$animal['location']}</li>
                   <li class='list-group-item'>Size: {$animal['size']}</li>
                   <li class='list-group-item'>Age: {$animal['age']} years</li>
-                  <li class='list-group-item'>$vaccinatedText</li>
+                  <li class='list-group-item'>Vaccinated: $vaccinatedText</li>
                   <li class='list-group-item'>Status: {$animal['status']}</li>
                   <li class='list-group-item'></li>
                 </ul>";
