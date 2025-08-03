@@ -52,8 +52,8 @@ $breedData = get_breed_by_id($animal['breed_id']);
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5">
     <?php
-    echo "<div style='width: fit-content;'>
-            <div class='card mb-4 d-flex flex-column justify-content-between align-items-center' style='max-width: 20rem; min-height: 41rem'>
+    $layout = "<div class='d-flex justify-content-center' style='width: 100%'>
+            <div class='card mb-4 d-flex flex-column justify-content-between align-items-center' style='width: 60%'>
             
             <div>
               <div class='animal-picture-container'>
@@ -76,18 +76,26 @@ $breedData = get_breed_by_id($animal['breed_id']);
                 <li class='list-group-item'>Vaccinated: $vaccinatedText</li>
                 <li class='list-group-item'>Status: {$animal['status']}</li>
                 <li class='list-group-item'></li>
-              </ul>
+              </ul>";
 
-              <div class='d-flex flex-row gap-1 justify-content-around mb-3' style='width:100%'>
-                <form method='POST'>
-                  <input type='hidden' name='animal_id_to_adopt' value='1'>
-                  <input disabled='' type='submit' name='adopt_animal' class='btn btn-success' value='Take me home'>
-                </form>
-              </div>
+    $layout .= "<div class='d-flex flex-row gap-1 justify-content-around mb-3' style='width:100%'>";
+
+    if (isset($_SESSION['user'])) {
+      $layout .= "<form method='POST'>
+                      <input type='hidden' name='animal_id_to_adopt' value='{$animal['id']}' />
+                      <input" . (($animal['status'] != 'available') ? " disabled" : "") . " type='submit' name='adopt_animal' class='btn btn-success' value='Take me home' />
+                  </form>";
+    }
+
+    $layout .= "</div>";
+
+    $layout .= "
             </div>
 
           </div>
         </div>";
+
+    echo $layout;
     ?>
 
     <?php create_back_button($homeUrl); ?>

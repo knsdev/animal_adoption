@@ -45,7 +45,7 @@ function create_card_layout_for_animals($response)
                   </form>";
       $layout .= "</div>";
     } else if (isset($_SESSION['admin'])) {
-      $layout .= "<div class='mb-3'>
+      $layout .= "<div class='d-flex flex-row gap-2 justify-content-center mb-3'>
                     <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>View Details</a>
                     <a href='./animal_update.php?id={$animal['id']}' class='btn btn-success'>Update</a>
                     <a href='./animal_delete.php?id={$animal['id']}' class='btn btn-danger'>Delete</a>
