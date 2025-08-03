@@ -274,6 +274,14 @@ function delete_animal($id)
   }
 
   $id = clean_input($id);
+
+  $sql = "DELETE FROM `pet_adoption` WHERE pet_id=$id";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    return create_response("500", "Failed to delete animal.");
+  }
+
   $sql = "DELETE FROM `animal` WHERE id=$id";
   $result = mysqli_query($conn, $sql);
 
