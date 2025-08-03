@@ -16,7 +16,7 @@ function create_card_layout_for_animals($response)
     <div style='width: fit-content;'>
       <div class='card shadow mb-4 d-flex flex-column justify-content-between align-items-center' style='max-width: 20rem;'>";
 
-    $layout .= "<div>
+    $layout .= "<div style='width: 100%'>
                   <div class='animal-picture-container'>
                     <img src='$animalPictureUrl' class='card-img-top animal-image' alt=''>
                   </div>
