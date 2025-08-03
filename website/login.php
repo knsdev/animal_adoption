@@ -61,7 +61,7 @@ if (isset($_POST['login'])) {
 
 <body>
   <?php require_once './components/navbar.php'; ?>
-  <div class="container mt-3 mb-5">
+  <div class="container mt-3 mb-5" style="flex-grow: 1;">
     <h1>Sign In</h1>
     <form method="POST" class="mt-4 mb-3 d-flex flex-column justify-content-start align-items-start">
       <div>
@@ -81,7 +81,7 @@ if (isset($_POST['login'])) {
 
     <a href="./register.php">Register new Account</a>
   </div>
-
+  <?php require_once './components/footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>

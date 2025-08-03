@@ -70,7 +70,7 @@ if (isset($_POST['register'])) {
     $errorPassword = "Password cannot be empty.";
     $error = true;
   } else if (strlen($password) < PASSWORD_MIN_LENGTH) {
-    $errorPassword = "Password is too short.";
+    $errorPassword = "Password is too short (at least " . PASSWORD_MIN_LENGTH . " characters).";
     $error = true;
   } else if (strlen($password) > PASSWORD_MAX_LENGTH) {
     $errorPassword = "Password is too long.";
@@ -108,7 +108,7 @@ if (isset($_POST['register'])) {
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
-      $resultMessageSuccess = "Registered successfully!";
+      $resultMessageSuccess = "<div class='alert alert-success' role='alert'>Registered successfully!</div>";
       $email = null;
       $password = null;
       $confirmPassword = null;
@@ -118,7 +118,7 @@ if (isset($_POST['register'])) {
       $phone = null;
       $address = null;
     } else {
-      $resultMessageFailure = get_last_sql_error_message($conn);
+      $resultMessageFailure = "<div class='alert alert-success' role='alert'>" . get_last_sql_error_message($conn) . "</div>";
       image_file_delete($picture, PICTURE_FOLDER_NAME);
     }
   } else {
@@ -143,8 +143,10 @@ if (isset($_POST['register'])) {
 
 <body>
   <?php require_once './components/navbar.php'; ?>
-  <div class="container mt-3 mb-5">
+  <div class="container mt-3 mb-5" style="flex-grow: 1;">
     <h1 class="mb-2">Register</h1>
+    <p class="text-success"><?= $resultMessageSuccess ?? '' ?></p>
+    <p class="text-danger"><?= $resultMessageFailure ?? '' ?></p>
     <?php create_back_button("login.php"); ?>
     <form method="POST" enctype="multipart/form-data" style="max-width: 600px">
       <div class="form-group d-flex flex-column gap-2 mt-3">
@@ -192,9 +194,8 @@ if (isset($_POST['register'])) {
         <input type="submit" name="register" value="Register" class="btn btn-primary">
       </div>
     </form>
-    <p class="text-success"><?= $resultMessageSuccess ?? '' ?></p>
-    <p class="text-danger"><?= $resultMessageFailure ?? '' ?></p>
   </div>
+  <?php require_once './components/footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>

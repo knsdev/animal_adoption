@@ -42,13 +42,14 @@ if ($response['status'] == 200) {
 
 <body>
   <?php require_once './components/navbar.php'; ?>
-  <div class="container mt-3 mb-5">
+  <div class="container mt-3 mb-5" style="flex-grow: 1;">
     <h1 class="mb-3">Dashboard</h1>
     <div class="d-flex gap-3 justify-content-start mb-3">
       <a href='./animal_create.php' class='btn btn-primary'>Create New Animal</a>
     </div>
     <?= $layout ?>
   </div>
+  <?php require_once './components/footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>

@@ -73,7 +73,7 @@ if ($response['status'] == 200) {
 
 <body>
   <?php require_once './components/navbar.php'; ?>
-  <div class="container mt-3 mb-5">
+  <div class="container mt-3 mb-5" style="flex-grow: 1;">
     <div class="d-flex gap-3 mb-3">
       <a class="btn btn-primary" href="home.php">All Pets</a>
       <a class="btn btn-primary" href="home.php?available_pets=true">Available Pets</a>
@@ -83,6 +83,7 @@ if ($response['status'] == 200) {
     <h1 class="mb-4"><?= $pageTitle ?></h1>
     <?= $layout ?>
   </div>
+  <?php require_once './components/footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>

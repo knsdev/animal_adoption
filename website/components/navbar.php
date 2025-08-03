@@ -7,8 +7,8 @@ $homeName = isset($_SESSION['admin']) ? "Dashboard" : "Home";
   <nav class="navbar navbar-expand-lg" style="min-height: 3.5rem">
     <div class="container">
       <?php if (isset($_SESSION['user']) || isset($_SESSION['admin'])) { ?>
-        <a href='<?= $homeUrl ?>' class=' d-block me-3'>
-          <img src='<?= $myUserData['profile_img_url'] ?? '' ?>' alt='profile image' width='100' height='100' class='rounded-circle' style='object-fit:cover;'>
+        <a href='<?= $homeUrl ?>' class='d-block me-3'>
+          <img src='<?= $myUserData['profile_img_url'] ?? '' ?>' alt='profile image' width='100' height='100' class='rounded-circle shadow-sm' style='object-fit:cover;'>
         </a>
         <a class="navbar-brand me-1" href="<?= $homeUrl ?>">Hi <?= $myUserData['first_name'] ?? '' ?>!</a>
       <?php } ?>

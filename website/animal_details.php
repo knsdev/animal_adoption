@@ -50,10 +50,10 @@ $breedData = get_breed_by_id($animal['breed_id']);
 
 <body>
   <?php require_once './components/navbar.php'; ?>
-  <div class="container mt-3 mb-5">
+  <div class="container mt-3 mb-5" style="flex-grow: 1;">
     <?php
     $layout = "<div class='d-flex justify-content-center' style='width: 100%'>
-            <div class='card mb-4 d-flex flex-column justify-content-between align-items-center' style='width: 60%'>
+            <div class='card shadow mb-4 d-flex flex-column justify-content-between align-items-center' style='width: 60%'>
             
             <div>
               <div class='animal-picture-container'>
@@ -100,6 +100,7 @@ $breedData = get_breed_by_id($animal['breed_id']);
 
     <?php create_back_button($homeUrl); ?>
   </div>
+  <?php require_once './components/footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
