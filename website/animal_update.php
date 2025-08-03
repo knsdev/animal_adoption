@@ -58,7 +58,10 @@ if (isset($_POST['update'])) {
   } else if ($newPicture[1] === ImageFileUploadResult::NoFileUploaded) {
     // keep the current picture
   } else {
-    $oldPictureToDelete = $picture;
+    if (isset($picture)) {
+      $oldPictureToDelete = $picture;
+    }
+
     $picture = $newPicture;
     $_POST['picture'] = $newPicture[0];
   }
