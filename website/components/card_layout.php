@@ -9,21 +9,36 @@ function create_card_layout_for_animals($response)
 
   foreach ($rows as $animal) {
     $animalPictureUrl = get_animal_picture_url($animal);
+    $vaccinatedText = ($animal['vaccinated']) ? 'vaccinated' : 'not vaccinated';
 
     $layout .= "
     <div style='width: fit-content;'>
-      <div class='card mb-4' style='max-width: 20rem; min-height: 30rem'>
-        <div class='animal-picture-container'>
-          <img src='$animalPictureUrl' class='card-img-top animal-image' alt=''>
-        </div>
-        <div class='card-body d-flex flex-column justify-content-between align-items-center'>
-          <div>
-            <h5 class='card-title'>{$animal['name']}</h5>
-            <p class='card-text'>{$animal['description']}</p>
-          </div>";
+      <div class='card mb-4 d-flex flex-column justify-content-between align-items-center' style='max-width: 20rem; min-height: 41rem'>";
+
+    $layout .= "<div>
+                  <div class='animal-picture-container'>
+                    <img src='$animalPictureUrl' class='card-img-top animal-image' alt=''>
+                  </div>
+                  <div class='card-body'>
+                    <h5 class='card-title'>{$animal['name']}</h5>
+                    <p class='card-text'>{$animal['description']}</p>
+                  </div>
+                </div>";
+
+    $layout .= "<div style='width: 100%'>";
+
+    $layout .= "<ul class='list-group list-group-flush'>
+                  <li class='list-group-item'></li>
+                  <li class='list-group-item'>Location: {$animal['location']}</li>
+                  <li class='list-group-item'>Size: {$animal['size']}</li>
+                  <li class='list-group-item'>Age: {$animal['age']} years</li>
+                  <li class='list-group-item'>$vaccinatedText</li>
+                  <li class='list-group-item'>Status: {$animal['status']}</li>
+                  <li class='list-group-item'></li>
+                </ul>";
 
     if (isset($_SESSION['user'])) {
-      $layout .= "<div class='d-flex flex-row gap-1 justify-content-around' style='width:100%'>
+      $layout .= "<div class='d-flex flex-row gap-1 justify-content-around mb-3' style='width:100%'>
                     <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>View Details</a>";
       $layout .= "<form method='POST'>
                       <input type='hidden' name='animal_id_to_adopt' value='{$animal['id']}' />
@@ -31,18 +46,16 @@ function create_card_layout_for_animals($response)
                   </form>";
       $layout .= "</div>";
     } else if (isset($_SESSION['admin'])) {
-      $layout .= "<div>
+      $layout .= "<div class='mb-3'>
                     <a href='./animal_details.php?id={$animal['id']}' class='btn btn-primary'>View Details</a>
                     <a href='./animal_update.php?id={$animal['id']}' class='btn btn-success'>Update</a>
                     <a href='./animal_delete.php?id={$animal['id']}' class='btn btn-danger'>Delete</a>
                   </div>";
     }
 
-    $layout .= "
-        </div>
-      </div>
-    </div>
-    ";
+    $layout .= "</div>"; // <div style='width: 100%'>
+
+    $layout .=  "</div></div>";
   }
 
   $layout .= "</div>";
