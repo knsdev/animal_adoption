@@ -15,6 +15,7 @@ require_once './components/card_layout.php';
 $conn = db_connect();
 $myUserId = get_my_user_id_from_session();
 $myUserData = get_user_data($conn, $myUserId);
+$layout = "";
 
 $response = get_all_animals();
 
