@@ -106,9 +106,9 @@ function get_animal_by_id($id)
   return create_response("200", "Successfully fetched animal by id.", $row);
 }
 
-function validate_input_name($value, $nameForErrorMessage, $nameForMessage, $minCharacters, $maxCharacters, &$res, &$error)
+function validate_input_text($value, $nameForErrorMessage, $nameForMessage, $minCharacters, $maxCharacters, &$res, &$error)
 {
-  if (empty($value)) {
+  if ($minCharacters > 0 && empty($value)) {
     $res[$nameForErrorMessage] = "$nameForMessage cannot be empty.";
     $error = true;
     return false;
@@ -140,15 +140,55 @@ function validate_input_int($value, $nameForErrorMessage, $nameForMessage, &$res
   return true;
 }
 
+function validate_input_enum($value, $possibleEnumValues, $nameForErrorMessage, $nameForMessage, &$res, &$error)
+{
+  if (empty($value)) {
+    $res[$nameForErrorMessage] = "$nameForMessage cannot be empty.";
+    $error = true;
+    return false;
+  } else if (!in_array($value, $possibleEnumValues)) {
+    $res[$nameForErrorMessage] = "$nameForMessage is invalid.";
+    $error = true;
+    return false;
+  }
+
+  return true;
+}
+
+function validate_input_bool($value, $nameForErrorMessage, $nameForMessage, &$res, &$error)
+{
+  if (filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) === NULL) {
+    $res[$nameForErrorMessage] = "$nameForMessage is invalid.";
+    $error = true;
+    return false;
+  }
+
+  return true;
+}
+
 function validate_total_input($conn, $data, &$res, &$error)
 {
-  validate_input_name($data['name'], "error_name", "Name", ANIMAL_NAME_MIN_LENGTH, ANIMAL_NAME_MAX_LENGTH, $res, $error);
-  validate_input_name($data['location'], "error_location", "Location", ANIMAL_LOCATION_MIN_LENGTH, ANIMAL_LOCATION_MAX_LENGTH, $res, $error);
+  validate_input_text($data['name'], "error_name", "Name", ANIMAL_NAME_MIN_LENGTH, ANIMAL_NAME_MAX_LENGTH, $res, $error);
+  validate_input_text($data['description'], "error_description", "Description", ANIMAL_DESCRIPTION_MIN_LENGTH, ANIMAL_DESCRIPTION_MAX_LENGTH, $res, $error);
+  validate_input_text($data['location'], "error_location", "Location", ANIMAL_LOCATION_MIN_LENGTH, ANIMAL_LOCATION_MAX_LENGTH, $res, $error);
+  validate_input_enum($data['size'], ['small', 'default', 'big'], "error_size", "Size", $res, $error);
+  validate_input_enum($data['status'], ['available', 'adopted'], "error_status", "Status", $res, $error);
+  validate_input_bool($data['vaccinated'], "error_vaccinated", "Vaccinated", $res, $error);
+
+  $age = $data['age'];
+
+  if (validate_input_int($age, "error_age", "Age", $res, $error)) {
+    if ($age <= 0) {
+      $res["error_age"] = "Age must be greater than 0.";
+      $error = true;
+    }
+  }
 
   $breed_id = $data['breed_id'];
 
   if ($breed_id < 0) {
     $res["error_breed_id"] = "You have to select a breed.";
+    $error = true;
   } else if (validate_input_int($breed_id, "error_breed_id", "Breed", $res, $error)) {
     $sql = "SELECT * FROM `breed` WHERE id=$breed_id";
     $result = mysqli_query($conn, $sql);
@@ -159,12 +199,11 @@ function validate_total_input($conn, $data, &$res, &$error)
 
     if (mysqli_num_rows($result) != 1) {
       $res["error_breed_id"] = "Breed not found.";
+      $error = true;
     }
   }
 
-  // TODO: Validate other fields
-  // is_numeric(age)
-  // age >= 0
+  return null;
 }
 
 function create_animal(&$data, $error)
@@ -185,7 +224,9 @@ function create_animal(&$data, $error)
   $data['breed_id'] = get_clean_input($data, 'breed_id');
 
   $res = [];
-  validate_total_input($conn, $data, $res, $error);
+  if ($dbErrorResponse = validate_total_input($conn, $data, $res, $error)) {
+    return $dbErrorResponse;
+  }
 
   if ($error) {
     return create_response("400", "Invalid input.", $res);

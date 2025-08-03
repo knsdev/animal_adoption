@@ -14,4 +14,7 @@ define("ANIMAL_NAME_MAX_LENGTH", 100);
 define("ANIMAL_LOCATION_MIN_LENGTH", 5);
 define("ANIMAL_LOCATION_MAX_LENGTH", 100);
 
+define("ANIMAL_DESCRIPTION_MIN_LENGTH", 0);
+define("ANIMAL_DESCRIPTION_MAX_LENGTH", 1000);
+
 define("ERROR_MESSAGE_GENERAL", "Something went wrong, please try again later.");
