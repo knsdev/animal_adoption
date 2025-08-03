@@ -1,3 +1,14 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+if (!isset($_SESSION['admin'])) {
+  http_response_code(403);
+  die("Access denied!");
+}
+?>
+
 <?= $resultMessage ?? '' ?>
 <form method="POST" enctype="multipart/form-data" style="max-width: 600px">
   <div>

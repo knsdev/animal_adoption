@@ -6,6 +6,11 @@ if (isset($_SESSION['admin'])) {
   exit();
 }
 
+if (!isset($_SESSION['user'])) {
+  header("location: login.php");
+  exit();
+}
+
 require_once './components/define.php';
 require_once './components/db_connect.php';
 require_once './components/util.php';

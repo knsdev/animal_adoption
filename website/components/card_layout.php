@@ -1,5 +1,5 @@
 <?php
-require_once './components/define.php';
+require_once __DIR__ . '/define.php';
 
 function create_card_layout_for_animals($response)
 {
