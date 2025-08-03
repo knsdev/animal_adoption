@@ -25,13 +25,13 @@ if (isset($_POST['adopt_animal'])) {
   $adoptResponse = adopt_animal($_POST['animal_id_to_adopt'], $_SESSION['user']);
 
   if ($adoptResponse['status'] == 201) {
-    echo "<div class='alert alert-success' role='alert'>
-          {$adoptResponse['message']}
-        </div>";
+    $resultMessage = "<div class='alert alert-success' role='alert'>
+                        {$adoptResponse['message']}
+                      </div>";
   } else {
-    echo "<div class='alert alert-danger' role='alert'>
-          {$adoptResponse['message']}
-        </div>";
+    $resultMessage = "<div class='alert alert-danger' role='alert'>
+                        {$adoptResponse['message']}
+                      </div>";
   }
 }
 
@@ -80,6 +80,7 @@ if ($response['status'] == 200) {
       <a class="btn btn-primary" href="home.php?senior=true">Senior Pets</a>
       <a class="btn btn-primary" href="home.php?my_adopted_pets=true">My Adopted Pets</a>
     </div>
+    <?= $resultMessage ?? '' ?>
     <h1 class="mb-4"><?= $pageTitle ?></h1>
     <?= $layout ?>
   </div>
