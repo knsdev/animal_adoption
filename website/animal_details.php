@@ -67,7 +67,7 @@ $breedData = get_breed_by_id($animal['breed_id']);
   <div class="container mt-3 mb-5" style="flex-grow: 1;">
     <?php
     $layout = "<div class='d-flex justify-content-center' style='width: 100%'>
-            <div class='card shadow mb-4 d-flex flex-column justify-content-between align-items-center' style='width: 60%'>
+            <div class='card shadow mb-4 d-flex flex-column justify-content-between align-items-center' style='width: 90%; max-width: 750px'>
             
             <div>
               <div class='animal-picture-container'>
