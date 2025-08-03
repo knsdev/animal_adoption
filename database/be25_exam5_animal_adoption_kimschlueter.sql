@@ -48,15 +48,15 @@ CREATE TABLE `animal` (
 
 INSERT INTO `animal` (`id`, `name`, `picture`, `location`, `description`, `size`, `age`, `vaccinated`, `status`, `breed_id`) VALUES
 (1, 'Bella', 'img_688f3eb03d388.jpg', 'Musterstraße 12, 1010 Wien', 'Golden Retriever, friendly and playful.', 'big', 3, 1, 'available', 1),
-(2, 'Whiskers', 'img_688f3ed33611a.jpg', 'Hauptplatz 9, 4020 Linz', 'Siamese cat, very vocal and affectionate.', 'small', 2, 1, 'available', 3),
-(3, 'Thumper', 'img_688f3f4dd7d62.jpg', 'Mozartstraße 4, 5020 Salzburg', 'Netherland Dwarf rabbit, gentle and quiet.', 'small', 1, 0, 'available', 5),
-(4, 'Milo', 'img_688f40023dcd4.jpg', 'Bahnhofstraße 8, 8010 Graz', 'Beagle, energetic and curious.', 'default', 9, 1, 'available', 2),
-(5, 'Luna', 'img_688f40acf2475.jpg', 'Am Ring 5, 1010 Wien', 'Maine Coon cat, calm and fluffy.', 'default', 9, 1, 'available', 4),
-(6, 'Chirpy', 'img_688f4160389da.jpg', 'Landstraße 22, 4020 Linz', 'Cockatiel bird, social and sings often.', 'small', 2, 1, 'available', 6),
-(7, 'Fluffy', 'img_688f41cc02a0f.jpg', 'Schönbrunner Allee 3, 1120 Wien', 'Persian cat, quiet and loves to nap.', 'small', 3, 0, 'available', 7),
-(8, 'Rex', 'img_688f42661731b.jpg', 'Getreidegasse 18, 5020 Salzburg', 'Labrador, loyal and great with kids.', 'big', 10, 1, 'available', 8),
-(9, 'Ziggy', 'img_688f43721597c.jpg', 'Herrengasse 14, 8010 Graz', 'Abyssinian cat, very active and curious.', 'small', 12, 1, 'available', 9),
-(10, 'Cocoa', 'img_688f43a9c607f.jpg', 'Linzer Gasse 7, 5020 Salzburg', 'Mini Lop rabbit, loves to be cuddled.', 'small', 1, 1, 'available', 10);
+(2, 'Whiskers', 'img_688f3ed33611a.jpg', 'Hauptplatz 9, 4020 Linz', 'Siamese cat, very vocal and affectionate.', 'small', 2, 1, 'available', 2),
+(3, 'Thumper', 'img_688f3f4dd7d62.jpg', 'Mozartstraße 4, 5020 Salzburg', 'Netherland Dwarf rabbit, gentle and quiet.', 'small', 1, 0, 'available', 3),
+(4, 'Milo', 'img_688f40023dcd4.jpg', 'Bahnhofstraße 8, 8010 Graz', 'Beagle, energetic and curious.', 'default', 9, 1, 'available', 1),
+(5, 'Luna', 'img_688f40acf2475.jpg', 'Am Ring 5, 1010 Wien', 'Maine Coon cat, calm and fluffy.', 'default', 9, 1, 'available', 2),
+(6, 'Chirpy', 'img_688f4160389da.jpg', 'Landstraße 22, 4020 Linz', 'Cockatiel bird, social and sings often.', 'small', 2, 1, 'available', 4),
+(7, 'Fluffy', 'img_688f41cc02a0f.jpg', 'Schönbrunner Allee 3, 1120 Wien', 'Persian cat, quiet and loves to nap.', 'small', 3, 0, 'available', 2),
+(8, 'Rex', 'img_688f42661731b.jpg', 'Getreidegasse 18, 5020 Salzburg', 'Labrador, loyal and great with kids.', 'big', 10, 1, 'available', 1),
+(9, 'Ziggy', 'img_688f43721597c.jpg', 'Herrengasse 14, 8010 Graz', 'Abyssinian cat, very active and curious.', 'small', 12, 1, 'available', 2),
+(10, 'Cocoa', 'img_688f43a9c607f.jpg', 'Linzer Gasse 7, 5020 Salzburg', 'Mini Lop rabbit, loves to be cuddled.', 'small', 1, 1, 'available', 3);
 
 -- --------------------------------------------------------
 
@@ -74,16 +74,10 @@ CREATE TABLE `breed` (
 --
 
 INSERT INTO `breed` (`id`, `name`) VALUES
-(1, 'Golden Retriever'),
-(2, 'Beagle'),
-(3, 'Siamese Cat'),
-(4, 'Maine Coon'),
-(5, 'Netherland Dwarf'),
-(6, 'Cockatiel'),
-(7, 'Persian Cat'),
-(8, 'Labrador'),
-(9, 'Abyssinian'),
-(10, 'Mini Lop');
+(1, 'Dog'),
+(2, 'Cat'),
+(3, 'Rabbit'),
+(4, 'Bird');
 
 -- --------------------------------------------------------
 
@@ -169,7 +163,7 @@ ALTER TABLE `animal`
 -- AUTO_INCREMENT for table `breed`
 --
 ALTER TABLE `breed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pet_adoption`
