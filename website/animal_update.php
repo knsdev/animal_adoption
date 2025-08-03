@@ -58,6 +58,7 @@ if (isset($_POST['update'])) {
   } else if ($newPicture[1] === ImageFileUploadResult::NoFileUploaded) {
     // keep the current picture
   } else {
+    $oldPictureToDelete = $picture;
     $picture = $newPicture;
     $_POST['picture'] = $newPicture[0];
   }
@@ -65,6 +66,10 @@ if (isset($_POST['update'])) {
   $response = update_animal($_GET['id'], $_POST, $error);
 
   if ($response['status'] == 200) {
+    if (isset($oldPictureToDelete)) {
+      image_file_delete($oldPictureToDelete, PICTURE_FOLDER_NAME);
+    }
+
     $resultMessage = "<div class='alert alert-success' role='alert'>
                         {$response['message']}
                       </div>";

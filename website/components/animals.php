@@ -7,6 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once __DIR__ . '/define.php';
 require_once __DIR__ . '/db_connect.php';
 require_once __DIR__ . '/util.php';
+require_once __DIR__ . '/file_upload.php';
 
 $isAdmin = isset($_SESSION['admin']);
 $conn = db_connect();
@@ -315,6 +316,17 @@ function delete_animal($id)
   }
 
   $id = clean_input($id);
+
+  $sql = "SELECT `picture` FROM `animal` WHERE id=$id";
+  $result = mysqli_query($conn, $sql);
+
+  if (!$result) {
+    return create_response("500", "Failed to delete animal.");
+  } else {
+    $row = mysqli_fetch_assoc($result);
+    $picture = [$row['picture'], null];
+    image_file_delete($picture, PICTURE_FOLDER_NAME);
+  }
 
   $sql = "DELETE FROM `pet_adoption` WHERE pet_id=$id";
   $result = mysqli_query($conn, $sql);
