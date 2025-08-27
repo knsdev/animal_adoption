@@ -76,10 +76,10 @@ if ($response['status'] == 200) {
   <?php require_once './components/navbar.php'; ?>
   <div class="container mt-3 mb-5" style="flex-grow: 1;">
     <div class="d-flex gap-3 mb-3">
-      <a class="btn btn-primary" href="home.php">All Pets</a>
-      <a class="btn btn-primary" href="home.php?available_pets=true">Available Pets</a>
-      <a class="btn btn-primary" href="home.php?senior=true">Senior Pets</a>
-      <a class="btn btn-primary" href="home.php?my_adopted_pets=true">My Adopted Pets</a>
+      <a class="btn btn-primary" href="index.php">All Pets</a>
+      <a class="btn btn-primary" href="index.php?available_pets=true">Available Pets</a>
+      <a class="btn btn-primary" href="index.php?senior=true">Senior Pets</a>
+      <a class="btn btn-primary" href="index.php?my_adopted_pets=true">My Adopted Pets</a>
     </div>
     <?= $resultMessage ?? '' ?>
     <h1 class="mb-4"><?= $pageTitle ?></h1>

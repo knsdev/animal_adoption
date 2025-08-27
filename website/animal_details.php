@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['user'])) {
   exit();
 }
 
-$homeUrl = isset($_SESSION['admin']) ? "dashboard.php" : "home.php";
+$homeUrl = isset($_SESSION['admin']) ? "dashboard.php" : "index.php";
 
 if (!isset($_GET['id'])) {
   header("location: $homeUrl");

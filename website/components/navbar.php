@@ -1,5 +1,5 @@
 <?php
-$homeUrl = isset($_SESSION['admin']) ? "dashboard.php" : "home.php";
+$homeUrl = isset($_SESSION['admin']) ? "dashboard.php" : "index.php";
 $homeName = isset($_SESSION['admin']) ? "Dashboard" : "Home";
 ?>
 

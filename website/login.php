@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['user'])) {
-  header("location: home.php");
+  header("location: index.php");
   exit();
 } else if (isset($_SESSION['admin'])) {
   header("location: dashboard.php");
@@ -36,7 +36,7 @@ if (isset($_POST['login'])) {
 
     if ($row['authority'] == 'user') {
       $_SESSION['user'] = $row['id'];
-      header("location: home.php");
+      header("location: index.php");
     } else if ($row['authority'] == 'admin') {
       $_SESSION['admin'] = $row['id'];
       header("location: dashboard.php");
