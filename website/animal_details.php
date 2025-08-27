@@ -13,11 +13,11 @@ if (!isset($_GET['id'])) {
   exit();
 }
 
-require_once './components/define.php';
-require_once './components/db_connect.php';
-require_once './components/util.php';
-require_once './components/animals.php';
-require_once './components/file_upload.php';
+require_once __DIR__ . './components/define.php';
+require_once __DIR__ . './components/db_connect.php';
+require_once __DIR__ . './components/util.php';
+require_once __DIR__ . './components/animals.php';
+require_once __DIR__ . './components/file_upload.php';
 
 $conn = db_connect();
 $myUserId = get_my_user_id_from_session();

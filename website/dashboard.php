@@ -6,11 +6,11 @@ if (!isset($_SESSION['admin'])) {
   exit();
 }
 
-require_once './components/define.php';
-require_once './components/db_connect.php';
-require_once './components/util.php';
-require_once './components/animals.php';
-require_once './components/card_layout.php';
+require_once __DIR__ . './components/define.php';
+require_once __DIR__ . './components/db_connect.php';
+require_once __DIR__ . './components/util.php';
+require_once __DIR__ . './components/animals.php';
+require_once __DIR__ . './components/card_layout.php';
 
 $conn = db_connect();
 $myUserId = get_my_user_id_from_session();

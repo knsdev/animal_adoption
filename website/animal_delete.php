@@ -6,9 +6,9 @@ if (!isset($_SESSION['admin'])) {
   exit();
 }
 
-require_once './components/define.php';
-require_once './components/db_connect.php';
-require_once './components/animals.php';
+require_once __DIR__ . './components/define.php';
+require_once __DIR__ . './components/db_connect.php';
+require_once __DIR__ . './components/animals.php';
 
 delete_animal($_GET['id']);
 

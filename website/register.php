@@ -9,10 +9,10 @@ if (isset($_SESSION['user'])) {
   exit();
 }
 
-require_once './components/define.php';
-require_once './components/db_connect.php';
-require_once './components/util.php';
-require_once './components/file_upload.php';
+require_once __DIR__ . './components/define.php';
+require_once __DIR__ . './components/db_connect.php';
+require_once __DIR__ . './components/util.php';
+require_once __DIR__ . './components/file_upload.php';
 
 if (isset($_POST['register'])) {
   $conn = db_connect();
