@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2025 at 01:35 PM
+-- Generation Time: Aug 27, 2025 at 01:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `be25_exam5_animal_adoption_kimschlueter`
+-- Database: `kimcodefactory_animal_adoption`
 --
-CREATE DATABASE IF NOT EXISTS `be25_exam5_animal_adoption_kimschlueter` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `be25_exam5_animal_adoption_kimschlueter`;
+CREATE DATABASE IF NOT EXISTS `kimcodefactory_animal_adoption` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `kimcodefactory_animal_adoption`;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE `animal` (
 --
 
 INSERT INTO `animal` (`id`, `name`, `picture`, `location`, `description`, `size`, `age`, `vaccinated`, `status`, `breed_id`) VALUES
-(1, 'Bella', 'img_688f3eb03d388.jpg', 'Musterstraße 12, 1010 Wien', 'Golden Retriever, friendly and playful.', 'big', 3, 1, 'available', 1),
+(1, 'Bella', 'img_688f3eb03d388.jpg', 'Musterstraße 12, 1010 Wien', 'Golden Retriever, friendly and playful.', 'big', 3, 1, 'adopted', 1),
 (2, 'Whiskers', 'img_688f3ed33611a.jpg', 'Hauptplatz 9, 4020 Linz', 'Siamese cat, very vocal and affectionate.', 'small', 2, 1, 'available', 2),
 (3, 'Thumper', 'img_688f3f4dd7d62.jpg', 'Mozartstraße 4, 5020 Salzburg', 'Netherland Dwarf rabbit, gentle and quiet.', 'small', 1, 0, 'available', 3),
 (4, 'Milo', 'img_688f40023dcd4.jpg', 'Bahnhofstraße 8, 8010 Graz', 'Beagle, energetic and curious.', 'default', 9, 1, 'available', 1),
@@ -89,8 +89,15 @@ CREATE TABLE `pet_adoption` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `pet_id` int(11) NOT NULL,
-  `adoption_date` date NOT NULL DEFAULT current_timestamp()
+  `adoption_date` date NOT NULL DEFAULT '1970-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pet_adoption`
+--
+
+INSERT INTO `pet_adoption` (`id`, `user_id`, `pet_id`, `adoption_date`) VALUES
+(1, 2, 1, '2025-08-27');
 
 -- --------------------------------------------------------
 
@@ -170,7 +177,7 @@ ALTER TABLE `breed`
 -- AUTO_INCREMENT for table `pet_adoption`
 --
 ALTER TABLE `pet_adoption`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`

@@ -373,7 +373,8 @@ function adopt_animal($animalId, $userId)
     return create_response("406", "Animal has already been adopted by someone.");
   }
 
-  $sql = "INSERT INTO `pet_adoption`(`user_id`, `pet_id`) VALUES ('$userId','$animalId')";
+  $currentDate = date('Y-m-d');
+  $sql = "INSERT INTO `pet_adoption`(`user_id`, `pet_id`, `adoption_date`) VALUES ('$userId','$animalId', '$currentDate')";
   $result = mysqli_query($conn, $sql);
 
   if (!$result) {
