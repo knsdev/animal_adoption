@@ -66,13 +66,15 @@ if (isset($_POST['login'])) {
     <h1>Sign In</h1>
     <form method="POST" class="mt-4 mb-3 d-flex flex-column justify-content-start align-items-start">
       <div>
-        <div class="d-flex mb-3">
+        <div class="d-flex mb-3 gap-3">
           <label for="email" class="form-label" style="flex-basis: 250px">Email:</label>
-          <input type="text" name="email" id="email" class="form-control" value="<?= $email ?? "" ?>">
+          <input type="text" name="email" id="email" class="form-control" value="<?= $email ?? "user@user.com" ?>">
+          <div id="test-info-email" style="flex-basis: 250px; text-wrap: nowrap; font-style: italic;">Test email</div>
         </div>
-        <div class="d-flex mb-3">
+        <div class="d-flex mb-3 gap-3">
           <label for="password" class="form-label" style="flex-basis: 250px">Password:</label>
-          <input type="password" name="password" id="password" class="form-control">
+          <input type="password" name="password" id="password" class="form-control" value="1212">
+          <div id="test-info-pw" style="flex-basis: 250px; text-wrap: nowrap; font-style: italic;">Test password</div>
         </div>
         <div>
           <input type="submit" name="login" value="Login" class="btn btn-primary">
@@ -83,6 +85,23 @@ if (isset($_POST['login'])) {
     <a href="./register.php">Register new Account</a>
   </div>
   <?php require_once './components/footer.php'; ?>
+
+  <script>
+    function handleInfoVisibility(inputElementId, infoElementId, testAccountValue) {
+      let input = document.getElementById(inputElementId);
+      let info = document.getElementById(infoElementId);
+
+      input.addEventListener("input", function(evt) {
+        if (input.value != testAccountValue)
+          info.style.visibility = "hidden";
+        else
+          info.style.visibility = "visible";
+      });
+    }
+
+    handleInfoVisibility("email", "test-info-email", "user@user.com");
+    handleInfoVisibility("password", "test-info-pw", "1212");
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
