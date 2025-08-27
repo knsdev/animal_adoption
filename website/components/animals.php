@@ -224,6 +224,9 @@ function create_animal(&$data, $error)
   $data['status'] = get_clean_input($data, 'status');
   $data['breed_id'] = get_clean_input($data, 'breed_id');
 
+  if (empty($data['vaccinated']))
+    $data['vaccinated'] = 0;
+
   $res = [];
   if ($dbErrorResponse = validate_total_input($conn, $data, $res, $error)) {
     return $dbErrorResponse;
@@ -275,6 +278,9 @@ function update_animal($id, &$data, $error)
   $data['vaccinated'] = get_clean_input($data, 'vaccinated');
   $data['status'] = get_clean_input($data, 'status');
   $data['breed_id'] = get_clean_input($data, 'breed_id');
+
+  if (empty($data['vaccinated']))
+    $data['vaccinated'] = 0;
 
   $res = [];
   validate_total_input($conn, $data, $res, $error);
