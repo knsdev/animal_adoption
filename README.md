@@ -10,6 +10,11 @@ An administrator can create, update, delete animals.
 <table>
   <tr>
     <td colspan="2">
+      <img src="./docs/entity_relationship_model.png" alt="" width="100%" style="border:3px solid black; border-radius:8px;" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
       <img src="./screenshots/home.png" alt="" width="100%" style="border:3px solid black; border-radius:8px;" />
     </td>
   </tr>
