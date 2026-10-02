@@ -3,8 +3,6 @@
 A web app built with PHP, MySQL and Bootstrap where logged-in users can adopt animals.
 An administrator can create, update, delete animals.
 
-[Live Demo](https://kim.codefactory.live/animal_adoption)
-
 ## Screenshots
 
 <table>
